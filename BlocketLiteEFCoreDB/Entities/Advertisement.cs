@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlocketLiteEFCoreDB.Entities
 {
+    /// <summary>
+    /// Public <see cref="Entities"/> that is stored in the DB.
+    /// </summary>
     [RentingAndSellingCanNotBothBeNull]
     public class Advertisement
     {
@@ -32,56 +35,73 @@ namespace BlocketLiteEFCoreDB.Entities
 
 
         /// <summary>
-        /// TODO Might fix this later
+        /// The year-of-build. Needs to be 4-digits.
         /// </summary>
         [Required]
         [MaxLength(4)]
         [Range(1600, 2500)]
         public int ConstructionYear { get; set; }
 
+        /// <summary>
+        /// A <see cref="DateTimeOffset"/> whne the advertisment is created.
+        /// </summary>
         [Required]
         public DateTimeOffset CreatedOn { get; set; }
 
         /// <summary>
-        /// Can be null
+        /// The Selling-Price, can be <see cref="Nullable"/> (can't be <see cref="Nullable"/> if the <see cref="RentingPrice"/> is <see cref="Nullable"/>).
         /// </summary>
         [MinLength(2), MaxLength(50)]
         public int? SellingPrice { get; set; }
 
         /// <summary>
-        /// Can be null
+        /// The renting price, can be <see cref="Nullable"/> (can't be <see cref="Nullable"/> if the <see cref="SellingPrice"/> is <see cref="Nullable"/>).
         /// </summary>
         [MinLength(2), MaxLength(50)]
         public int? RentingPrice { get; set; }
 
-
+        /// <summary>
+        /// The <see cref="ForeignKeyAttribute"/> for a specific <see cref="User"/>
+        /// </summary>
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
         public int? UserId { get; set; }
 
-
-        public PropertyType PropertyType { get; set; }
-
         /// <summary>
-        /// 1: Aparment
-        /// 2: House
-        /// 3: Office
-        /// 4: Werehouse
+        /// The <see cref="ForeignKeyAttribute"/> for a specific <see cref="PropertyType"/>
         /// </summary>
+        [ForeignKey("PropertyTypeId")]
+        public PropertyType PropertyType { get; set; }
         public int PropertyTypeId { get; set; }
 
+        /// <summary>
+        /// <see cref="Boolean"/> True if the propert can be sold. If <see cref="CanBeRented"/> is null. <see cref="CanBeSold"/> can't be null.
+        /// </summary>
         [Required]
         public bool CanBeSold { get; set; }
 
+        /// <summary>
+        /// <see cref="Boolean"/> True if the property can be rented. If <see cref="CanBeSold"/> is null. <see cref="CanBeRented"/> can't be null.
+        /// </summary>
         [Required]
         public bool CanBeRented { get; set; }
 
+        /// <summary>
+        /// The correct adrress to the property.
+        /// </summary>
+        [Required]
         public string Address { get; set; }
 
+        /// <summary>
+        /// The contact number to the seller.
+        /// </summary>
         [MinLength(8), MaxLength(15)]
         [Required]
         public string Contact { get; set; }
 
+        /// <summary>
+        /// A <see cref="Nullable"/> <see cref="ICollection{T}"/> of <see cref="Comment"/>. 
+        /// </summary>
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
