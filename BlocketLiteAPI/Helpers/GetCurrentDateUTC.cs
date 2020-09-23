@@ -13,8 +13,8 @@ namespace BlocketLiteAPI.Helpers
         /// <returns></returns>
         public static DateTimeOffset GetDateTimeUTC()
         {
-            var date = DateTime.UtcNow;
-            date = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second, date.Kind);
+            var date = DateTimeOffset.UtcNow;
+            date = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
             return date;
         }
     }
