@@ -44,10 +44,5 @@ namespace BlocketLiteEFCoreDB.Repositories
         {
             return _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
         }
-
-        IEnumerable<User> IUserRepository.GetPassword()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

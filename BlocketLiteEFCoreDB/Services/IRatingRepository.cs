@@ -5,7 +5,7 @@ using BlocketLiteEFCoreDB.Repositories;
 namespace BlocketLiteEFCoreDB.Services
 {
     /// <summary>
-    /// Interface that defins contracts for the <see cref="RatingRepository"/>
+    /// Interface that defines contracts for the <see cref="RatingRepository"/>
     /// </summary>
     public interface IRatingRepository : IRepository<Rating>
     {
