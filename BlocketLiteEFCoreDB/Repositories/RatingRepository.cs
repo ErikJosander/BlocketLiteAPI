@@ -45,6 +45,7 @@ namespace BlocketLiteEFCoreDB.Repositories
             var userName = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
             if (userName == null)
             {
+                // TODO what is this?
                 return "DELETED";
             }
             else

@@ -5,7 +5,7 @@ using BlocketLiteEFCoreDB.Repositories;
 namespace BlocketLiteEFCoreDB.Services
 {
     /// <summary>
-    /// Interface that defins contracts for the <see cref="ICommentRepository"/>
+    /// Interface that defins contracts for the <see cref="CommentRepository"/>
     /// </summary>
     public interface ICommentRepository : IRepository<Comment>
     {
@@ -28,7 +28,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns><see cref="ICollection{T} <see cref="Comment"/>"/></returns>
-        ICollection<Comment> GetAllUser(string userName, int skip, int take);
+        ICollection<Comment> GetAllFromUser(string userName, int skip, int take);
 
         /// <summary>
         /// If <see cref=DbContexts.BlocketLiteContext.Comments"/> contains an <see cref="Comment"/> with <see cref="Comment.UserName"/> 
@@ -38,7 +38,11 @@ namespace BlocketLiteEFCoreDB.Services
         /// <returns><see cref="Comment.UserId"/></returns>
         int? GetUserIdFromUserName(string userName);
 
-
+        /// <summary>
+        /// Returns an <see cref="int"/> count of all the <see cref="Comment"/> that have t he same <see cref="Comment.UserId"/>
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns><see cref="int"/></returns>
         int GetNumberOfComments(int userId);
     }
 }
