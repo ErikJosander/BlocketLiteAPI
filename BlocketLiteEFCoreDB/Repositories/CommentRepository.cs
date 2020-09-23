@@ -42,7 +42,7 @@ namespace BlocketLiteEFCoreDB.Repositories
             return collectionOutput;
         }
 
-        public ICollection<Comment> GetAllUser(string userName, int skip, int take)
+        public ICollection<Comment> GetAllFromUser(string userName, int skip, int take)
         {
             var collection = _context.Comments.Where(c => c.UserName == userName).ToList();
             if (collection == null)

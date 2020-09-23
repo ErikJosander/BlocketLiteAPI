@@ -64,7 +64,7 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet("ByUser/{USERANAME}")]
         public ActionResult<IEnumerable<CommentDto>> GetComments(string USERANAME, int skip, int take)
         {
-            var commentsFromRepo = _commentRepository.GetAllUser(USERANAME, skip, take);
+            var commentsFromRepo = _commentRepository.GetAllFromUser(USERANAME, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
 
