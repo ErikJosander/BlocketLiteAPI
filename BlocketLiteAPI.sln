@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlocketLiteAPI", "BlocketLiteAPI\BlocketLiteAPI.csproj", "{49C5B74B-EF2D-4F5A-9C2C-2C2C81996271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlocketLiteEFCoreDB", "BlocketLiteEFCoreDB\BlocketLiteEFCoreDB.csproj", "{D94950FE-B307-46C3-B9CC-F0F342772BD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49C5B74B-EF2D-4F5A-9C2C-2C2C81996271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C5B74B-EF2D-4F5A-9C2C-2C2C81996271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C5B74B-EF2D-4F5A-9C2C-2C2C81996271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C5B74B-EF2D-4F5A-9C2C-2C2C81996271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D94950FE-B307-46C3-B9CC-F0F342772BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94950FE-B307-46C3-B9CC-F0F342772BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94950FE-B307-46C3-B9CC-F0F342772BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94950FE-B307-46C3-B9CC-F0F342772BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71A84936-AE37-47C3-A9F8-9B2B33CBE50A}
+	EndGlobalSection
+EndGlobal
