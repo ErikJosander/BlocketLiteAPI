@@ -46,7 +46,6 @@ namespace BlocketLiteAPI
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
             });
-
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -101,10 +100,8 @@ namespace BlocketLiteAPI
                 });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             var key = "this is my test key";
             services.AddSingleton<IJWTAuthenticationMananger>(new JWTAuthenticationMananger(key));
-
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -122,21 +119,16 @@ namespace BlocketLiteAPI
                 };
             });
 
-            // Need to add more Repositories here
-            // TODO need to add more repositories
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
             services.AddScoped<IAdvertismentRepository, AdvertismentRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
 
-
             services.AddDbContext<BlocketLiteContext>(options =>
             {
                 options.UseSqlServer(DbString.connectionString);
             });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
