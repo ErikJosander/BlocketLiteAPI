@@ -4,21 +4,47 @@ using System;
 
 namespace BlocketLiteEFCoreDB.DbContexts
 {
+    /// <summary>
+    /// A Context Class that inherits from <see cref="DbContext"/>. <see cref="BlocketLiteContext"/> also seeds and implements rules for the DB.
+    /// </summary>
     public class BlocketLiteContext : DbContext
     {
+        // Constructor
         public BlocketLiteContext(DbContextOptions<BlocketLiteContext> options)
           : base(options)
         {
 
         }
 
+        /// <summary>
+        /// A <see cref="DbSet{TEntity}"/> of <see cref="Advertisement"/>
+        /// </summary>
         public DbSet<Advertisement> Advertisements { get; set; }
+
+        /// <summary>
+        /// A <see cref="DbSet{TEntity}"/> of <see cref="Comment"/>
+        /// </summary>
         public DbSet<Comment> Comments { get; set; }
+
+        /// <summary>
+        /// A <see cref="DbSet{TEntity}"/> of <see cref="User"/>
+        /// </summary>
         public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// A <see cref="DbSet{TEntity}"/> of <see cref="PropertyType"/>
+        /// </summary>
         public DbSet<PropertyType> PropertyTypes { get; set; }
+
+        /// <summary>
+        /// A <see cref="DbSet{TEntity}"/> of <see cref="Rating"/>
+        /// </summary>
         public DbSet<Rating> Ratings { get; set; }
 
-        // seed the database with dummy data
+        /// <summary>
+        /// Seeds the DB with dummy data on creation.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
