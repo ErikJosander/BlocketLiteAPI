@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlocketLiteAPI.ValidationAttributes
 {
+    /// <summary>
+    /// A Data Annotation class that validates <see cref="UserForCreationDto.Password"/> and <see cref="UserForCreationDto.ConfirmPassword"/>
+    /// </summary>
     public class ConfirmPasswordAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value,

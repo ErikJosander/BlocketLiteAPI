@@ -4,6 +4,9 @@ using BlocketLiteEFCoreDB.Entities;
 
 namespace BlocketLiteAPI.Profiles
 {
+    /// <summary>
+    /// Povides mapping for the <see cref="Rating"/> and all the related Models
+    /// </summary>
     public class RatingProfile : Profile
     {
         public RatingProfile()

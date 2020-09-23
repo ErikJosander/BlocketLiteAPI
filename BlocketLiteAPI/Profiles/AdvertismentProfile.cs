@@ -5,6 +5,9 @@ using BlocketLiteEFCoreDB.Entities;
 
 namespace BlocketLiteAPI.Profiles
 {
+    /// <summary>
+    /// Povides mapping for the <see cref="Advertisement"/> and all the related <see cref="Models.Advertisment"/>
+    /// </summary>
     public class AdvertismentProfile : Profile
     {
         public AdvertismentProfile()

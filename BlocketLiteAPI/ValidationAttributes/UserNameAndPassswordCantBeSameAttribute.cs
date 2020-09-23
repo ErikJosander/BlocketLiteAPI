@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlocketLiteAPI.ValidationAttributes
 {
+    /// <summary>
+    /// A Data Annotation class that validates that <see cref="UserForCreationDto.UserName"/> and <see cref="UserForCreationDto.Password"/> is not equal.
+    /// </summary>
     public class UserNameAndPassswordCantBeSameAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value,
