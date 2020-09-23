@@ -23,10 +23,6 @@ namespace BlocketLiteAPI
                     // we can start with a clean slate
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
-
-                    //context.Database.Migrate();
-                    // TODO fråga Stig på fredag 11/9
-
                 }
                 catch (Exception ex)
                 {
@@ -34,7 +30,6 @@ namespace BlocketLiteAPI
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
             }
-            // run the web app
             host.Run();
         }
 

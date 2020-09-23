@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlocketLiteAPI.ValidationAttributes
 {
+    /// <summary>
+    /// A Data Annotation class that validates that <see cref="AdvertisementForCreationDto.ConstructionYear"/> is less then the current year.
+    /// </summary>
     public class ConstructionYearMustBeLesserOrEqualToThisYearAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value,

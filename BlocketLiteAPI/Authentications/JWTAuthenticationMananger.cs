@@ -7,6 +7,9 @@ using System.Text;
 
 namespace BlocketLiteAPI.Authentications
 {
+    /// <summary>
+    /// Class that contains the JWTAuthenticationManager, creats ad encrypt a JWT token when called
+    /// </summary>
     public class JWTAuthenticationMananger : IJWTAuthenticationMananger
     {
         private readonly string _key;

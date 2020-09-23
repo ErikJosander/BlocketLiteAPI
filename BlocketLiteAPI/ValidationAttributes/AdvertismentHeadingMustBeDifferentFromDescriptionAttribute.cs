@@ -1,8 +1,12 @@
 ﻿using BlocketLiteAPI.Models;
+using BlocketLiteEFCoreDB.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlocketLiteAPI.ValidationAttributes
 {
+    /// <summary>
+    /// A Data Annotation class that validates <see cref="Advertisement.Title"/> and <see cref="Advertisement.Description"/>
+    /// </summary>
     public class AdvertismentHeadingMustBeDifferentFromDescriptionAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value,
