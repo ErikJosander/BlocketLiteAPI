@@ -280,7 +280,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         RatedUserId = 5,
                         RatingUserId = 6
                     });
-            }
+            }       
 
             base.OnModelCreating(modelBuilder);
         }
