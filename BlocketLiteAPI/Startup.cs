@@ -125,9 +125,22 @@ namespace BlocketLiteAPI
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
 
+
+            // Gets the environment key-value.
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+
             services.AddDbContext<BlocketLiteContext>(options =>
             {
-                options.UseSqlServer(DbString.connectionString);
+                if(environment == "Development")
+                {
+                    options.UseSqlServer(DbString.localDbString);
+                }
+                if(environment == "Production")
+                {
+                    options.UseSqlServer(DbString.azureDbString);
+                }
+                
             });
         }
 
