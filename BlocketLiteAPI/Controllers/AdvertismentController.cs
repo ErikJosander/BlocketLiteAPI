@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -60,9 +61,9 @@ namespace BlocketLiteAPI.Controllers
             {
                 return NotFound();
             }
-
+            Debug.WriteLine("******************** advertismentFromRepo.CreatedOn = " + advertismentFromRepo.CreatedOn);
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
-
+            Debug.WriteLine("******************** adv.CreatedOn = " + adv.CreatedOn);
             adv.RealEstateType = _advertismentRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
             return Ok(adv);
         }

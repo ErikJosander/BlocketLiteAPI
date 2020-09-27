@@ -60,7 +60,7 @@ namespace BlocketLiteAPI.Models
         /// <summary>
         /// The correct adrress to the property.
         /// </summary>
-        public string Adress { get; set; }
+        public string Address { get; set; }
     }
 }
 
