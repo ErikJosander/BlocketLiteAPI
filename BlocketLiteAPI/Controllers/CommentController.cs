@@ -28,6 +28,10 @@ namespace BlocketLiteAPI.Controllers
         }
 
        
+        /// <summary>
+        /// This Get methode returns all comments in the DB
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<IEnumerable<CommentDto>> GetAllComments()
         {
