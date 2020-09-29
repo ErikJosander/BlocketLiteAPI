@@ -3,8 +3,11 @@ using BlocketLiteAPI.Authentications;
 using BlocketLiteAPI.Models;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -63,12 +66,20 @@ namespace BlocketLiteAPI.Controllers
         /// Creates an <see cref="User"/> and stores it in the DBContext 
         /// <br></br><see cref="UserForCreationDto.UserName"/> can not exist in the DB on aother <see cref="User"/>.
         /// </summary>
+        /// <param name="value"></param>
         /// <param name="user"></param>
         /// <returns><see cref="OkResult"/></returns>
         [Route("api/account/register")]
         [HttpPost]
-        public ActionResult<UserDto> Register(UserForCreationDto user)
+        [Consumes("application/x-www-form-urlencoded")]
+        public ActionResult<UserDto> Register([FromForm] IFormCollection value)
         {
+            var user = new UserForCreationDto();
+            user.UserName = value["UserName"];
+            user.Email = value["Email"];
+            user.Password = value["Password"];
+            user.ConfirmPassword = value["ConfirmPassword"];
+
             var ifUserExists = _userRepository.GetFromUserName(user.UserName);
             if (ifUserExists != null)
             {
