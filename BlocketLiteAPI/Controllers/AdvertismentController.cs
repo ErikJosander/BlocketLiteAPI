@@ -36,7 +36,7 @@ namespace BlocketLiteAPI.Controllers
         [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments(
-           int skip = 0, int take = 10)
+           int skip = 0, int take = 0)
         {
             var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
             // format the given result as Json.
