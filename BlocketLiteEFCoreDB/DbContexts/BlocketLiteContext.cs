@@ -61,6 +61,29 @@ namespace BlocketLiteEFCoreDB.DbContexts
                 .HasForeignKey(c => c.RatingUserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<PropertyType>().HasData(
+                 new PropertyType()
+                 {
+                     Id = 1,
+                     Type = "apartment"
+                 },
+                 new PropertyType()
+                 {
+                     Id = 2,
+                     Type = "house"
+                 },
+                 new PropertyType()
+                 {
+                     Id = 3,
+                     Type = "office"
+                 },
+                 new PropertyType()
+                 {
+                     Id = 4,
+                     Type = "warehouse"
+                 });
+
+
             var environment = (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
             if (environment == "Development")
             {
@@ -110,28 +133,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
 
 
 
-                modelBuilder.Entity<PropertyType>().HasData(
-                    new PropertyType()
-                    {
-                        Id = 1,
-                        Type = "apartment"
-                    },
-                    new PropertyType()
-                    {
-                        Id = 2,
-                        Type = "house"
-                    },
-                    new PropertyType()
-                    {
-                        Id = 3,
-                        Type = "office"
-                    },
-                    new PropertyType()
-                    {
-                        Id = 4,
-                        Type = "warehouse"
-                    });
-
+             
 
 
                 modelBuilder.Entity<Advertisement>().HasData(

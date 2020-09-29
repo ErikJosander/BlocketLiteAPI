@@ -27,6 +27,13 @@ namespace BlocketLiteAPI.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+       
+        [HttpGet]
+        public ActionResult<IEnumerable<CommentDto>> GetAllComments()
+        {
+            var commentsFromRepo = _commentRepository.GetAll();           
+            return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
+        }
 
         /// <summary>
         /// This GET method takes an <see cref="Advertisement.Id"/> as input.

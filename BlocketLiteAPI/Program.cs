@@ -13,7 +13,6 @@ namespace BlocketLiteAPI
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Production");
             var host = CreateHostBuilder(args).Build();
-
             // migrate the database.  Best practice = in Main, using service scope
             using (var scope = host.Services.CreateScope())
             {
@@ -42,6 +41,8 @@ namespace BlocketLiteAPI
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
             }
+
+            
             host.Run();
         }
 

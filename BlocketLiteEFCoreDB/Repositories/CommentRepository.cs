@@ -74,11 +74,11 @@ namespace BlocketLiteEFCoreDB.Repositories
             var collection = _context.Comments.Where(c => c.UserId == userId).ToList();
             return collection.Count();
         }
-
+        // TODO
         public int? GetUserIdFromUserName(string userName)
         {
-            var user = _context.Comments.Where(c => c.UserName == userName).FirstOrDefault();
-            return user.UserId;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            return user.Id;
         }
     }
 }
