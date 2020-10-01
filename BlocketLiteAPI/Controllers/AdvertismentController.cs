@@ -36,10 +36,19 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>An <see cref="IEnumerable{T}"/> as a list of <see cref="AdvertismentSimpleDto"/></returns>
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments(
-           int skip = 0, int take = 10)
+        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments([FromQuery]
+           int skip = 0, int take = 0)
         {
-            var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+            if (skip < 0 || take < 0)
+            {
+                return BadRequest();
+            }
+                var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+            if(advertismentsFromRepo == null)
+            {
+                return NotFound();
+            }
+           
             // format the given result as Json.
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
             return Ok(result);
@@ -61,9 +70,8 @@ namespace BlocketLiteAPI.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine("******************** advertismentFromRepo.CreatedOn = " + advertismentFromRepo.CreatedOn);
+  
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
-            Debug.WriteLine("******************** adv.CreatedOn = " + adv.CreatedOn);
             adv.RealEstateType = _advertismentRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
             return Ok(adv);
         }

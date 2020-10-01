@@ -19,7 +19,6 @@ namespace BlocketLiteEFCoreDB.Repositories
 
         public TEntity Get(int id)
         {
-            Debug.WriteLine("****************** _contex.Set<TEntity>().Find(id) = " + _contex.Set<TEntity>().Find(id));
             return _contex.Set<TEntity>().Find(id); 
         }
 
