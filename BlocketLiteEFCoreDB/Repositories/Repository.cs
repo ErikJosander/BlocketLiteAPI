@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -18,7 +19,7 @@ namespace BlocketLiteEFCoreDB.Repositories
 
         public TEntity Get(int id)
         {
-            return _contex.Set<TEntity>().Find(id);
+            return _contex.Set<TEntity>().Find(id); 
         }
 
         public IEnumerable<TEntity> GetAll()
