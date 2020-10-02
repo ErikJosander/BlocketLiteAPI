@@ -41,12 +41,15 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet("{realEstateId}")]
         public ActionResult<IEnumerable<CommentDto>> GetComments(int realEstateId, int skip = 0, int take = 10)
         {
+            if (skip < 0 || take < 0)
+            {
+                return BadRequest();
+            }
             var commentsFromRepo = _commentRepository.GetAllFromRealEstate(realEstateId, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
-
-
-            commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
+            // Is sorted in repository, no need here/MJ
+            //commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
             // format the given result as Json.
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
