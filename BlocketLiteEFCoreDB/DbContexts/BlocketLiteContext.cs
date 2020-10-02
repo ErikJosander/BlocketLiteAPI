@@ -199,7 +199,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
                 });
 
 
-
             modelBuilder.Entity<Comment>().HasData(
                 new Comment
                 {
