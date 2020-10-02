@@ -37,7 +37,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet("{realEstateId}")]
         public ActionResult<IEnumerable<CommentDto>> GetComments(int realEstateId, int skip = 0, int take = 10)
         {

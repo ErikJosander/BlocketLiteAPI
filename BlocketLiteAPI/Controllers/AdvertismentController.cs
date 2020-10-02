@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -52,7 +53,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="realestateId"></param>
         /// <returns>A <see cref="AdvertismentAdvancedDto"/></returns>
         [AllowAnonymous]
-        [HttpGet("{realestateId}")]
+        [HttpGet("{realestateId}", Name = "GetRealEstateById")]
         public ActionResult<AdvertismentAdvancedDto> GetRealEstate(int realestateId)
         {
             var advertismentFromRepo = _advertismentRepository.Get(realestateId);
@@ -105,27 +106,57 @@ namespace BlocketLiteAPI.Controllers
         /// </summary>
         /// <param name="advertisement"></param>
         /// <returns>If Ok: <see cref="CreatedAtRouteResult"/> and an <see cref="AdvertismentSimpleDto"/></returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        public ActionResult<AdvertismentSimpleDto> CreateRealEstate(AdvertisementForCreationDto advertisement)
+        public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
+            [FromBody]AdvertisementForCreationDto advertisement)
         {
-            var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
+            try
+            {
+                if(advertisement == null)
+                {
+                    return BadRequest("Advertisement object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+                var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
-            string userName = User.Identity.Name;
-            int userId = _advertismentRepository.GetUserIdFromUserName(userName);
-            advertismentEntity.UserId = userId;
+                string userName = User.Identity.Name;
+                userName = "Johan"; // Remove!!
+                System.Diagnostics.Debug.WriteLine("userName = " + userName); // Remove!!
+                int userId = _advertismentRepository.GetUserIdFromUserName(userName);
+                Debug.WriteLine("userId" + userId);
+                System.Diagnostics.Debug.WriteLine("userId = " + userId); // Remove!!
+                advertismentEntity.UserId = userId;
 
 
-            if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
-            if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
-            advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
+                if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
+                if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
+                advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
 
-            _advertismentRepository.Add(advertismentEntity);
-            _advertismentRepository.Save();
+                _advertismentRepository.Add(advertismentEntity);
+                Debug.WriteLine("*********************************************************");
+                _advertismentRepository.Save();
+                Debug.WriteLine("9999999999999999999999999999999999999999999999999999999");
 
-            // TODO not returning the correct path (can't find path when i posted)
-            var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-            return CreatedAtRoute(nameof(GetRealEstate), new { id = advertismentToReturn.Id }, advertismentToReturn);
+                // TODO not returning the correct path (can't find path when i posted)
+                var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
+                Debug.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Debug.WriteLine(advertismentToReturn.Id);
+                var routeResult = CreatedAtRoute(nameof(GetRealEstate), new {id = advertismentToReturn.Id }, advertismentEntity);
+                Debug.WriteLine("routeResult.RouteName = ", routeResult.RouteName);
+                Debug.WriteLine("routeResult.RouteName.ToString() = ", routeResult.ToString());
+                return routeResult;
+            }
+            catch(Exception ex)
+            {
+                //TODO - create logging for errors
+                //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
+                return StatusCode(500, "Internal  server error");
+            }
+           
         }
     }
 }

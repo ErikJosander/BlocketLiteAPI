@@ -54,7 +54,8 @@ namespace BlocketLiteAPI.Models
         /// </summary>
         [Required(ErrorMessage = "You need to fill out a property-type-id.")]
         [Range(1, 4)]
-        public int PropertyTypeId { get; set; }
+        //public int PropertyTypeId { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// The address of the property.
