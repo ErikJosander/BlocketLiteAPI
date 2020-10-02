@@ -46,15 +46,16 @@ namespace BlocketLiteEFCoreDB.Repositories
 
         public ICollection<Comment> GetAllFromUser(string userName, int skip, int take)
         {
-            var collection = _context.Comments.Where(c => c.UserName == userName).ToList();
+            var collection = _context.Comments.Where(c => c.UserName == userName).OrderBy(c => c.CreatedOn).ToList();
             if (collection == null)
             {
                 return null;
             }
             if (take > 100) take = 100;
-            if (take < 10) take = 10;
-            if (skip < 0) skip = 0;
-            if (skip > collection.Count()) skip = (collection.Count() - 1);
+            //if (take < 10) take = 10; ? User should have opportunity to  take less than 10...
+            //if (take < 10) take = 10; 
+            //if (skip < 0) skip = 0; Makes the validation in the controller..
+            if (skip > collection.Count()) skip = collection.Count();
 
             List<Comment> collectionOutput = new List<Comment>();
             try
