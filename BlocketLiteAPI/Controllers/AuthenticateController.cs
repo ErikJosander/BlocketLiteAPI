@@ -66,8 +66,15 @@ namespace BlocketLiteAPI.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserForCreationDto model)
+        [Consumes("application/x-www-form-urlencoded")]                       
+        public async Task<IActionResult> Register([FromForm] IFormCollection value)
         {
+            var model = new UserForCreationDto();
+            model.UserName = value["UserName"];
+            model.Email = value["Email"];
+            model.Password = value["Password"];
+            model.ConfirmPassword = value["ConfirmPassword"];
+
             var userExists = await _userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Username allready exists." });
