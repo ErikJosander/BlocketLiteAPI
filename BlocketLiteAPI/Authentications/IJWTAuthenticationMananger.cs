@@ -1,6 +1,4 @@
-﻿using BlocketLiteEFCoreDB.Entities;
-
-namespace BlocketLiteAPI.Authentications
+﻿namespace BlocketLiteAPI.Authentications
 {
     //public interface IJWTAuthenticationMananger
     //{

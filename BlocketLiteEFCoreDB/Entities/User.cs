@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlocketLiteEFCoreDB.Entities
 {
@@ -10,7 +9,7 @@ namespace BlocketLiteEFCoreDB.Entities
     /// Public <see cref="Entities"/> that is stored in the DB.
     /// </summary>
     public class User : IdentityUser
-    { 
+    {
         /// <summary>
         /// The users username.. duh
         /// </summary>

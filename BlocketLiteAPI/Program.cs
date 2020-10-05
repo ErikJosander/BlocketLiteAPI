@@ -40,7 +40,7 @@ namespace BlocketLiteAPI
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
-            }           
+            }
             host.Run();
         }
 

@@ -1,4 +1,5 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,9 +11,8 @@ namespace BlocketLiteEFCoreDB.DbContexts
     /// <summary>
     /// A Context Class that inherits from <see cref="DbContext"/>. <see cref="BlocketLiteContext"/> also seeds and implements rules for the DB.
     /// </summary>
-    public class BlocketLiteContext : IdentityDbContext<User>
+    public class BlocketLiteContext : IdentityDbContext<User, IdentityRole<string>, string>
     {
-        // Constructor
         public BlocketLiteContext(DbContextOptions<BlocketLiteContext> options)
           : base(options)
         {
@@ -28,7 +28,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
         /// A <see cref="DbSet{TEntity}"/> of <see cref="Comment"/>
         /// </summary>
         public DbSet<Comment> Comments { get; set; }
-
 
 
         /// <summary>
@@ -88,23 +87,37 @@ namespace BlocketLiteEFCoreDB.DbContexts
             if (environment == "Development")
             {
                 List<User> users = new List<User>();
-                User user = new User()
-                {
-                    UserName = "Calle",
-                    Email = "Calle@gmail.com",
-                    Password = "123"
-                };
-                users.Add(user);
-
-                user = new User()
+                User user = new User
                 {
                     UserName = "Erik",
-                    Email = "Erik@gmail.com",
-                    Password = "123"
+                    Password = "Bas98Pmar@",
+                    LockoutEnabled = true,
+                    Email = "Erik@test.com",
+                    NormalizedEmail = "Erik@test.com".ToUpper(),
+                    NormalizedUserName = "Erik".ToUpper(),
+                    TwoFactorEnabled = false,
+                    EmailConfirmed = true,
+                    PhoneNumber = "123456789",
+                    PhoneNumberConfirmed = false
                 };
                 users.Add(user);
+                modelBuilder.Entity<User>().HasData(user);
 
-                modelBuilder.Entity<User>().HasData(users);
+                user = new User
+                {
+                    UserName = "Calle",
+                    LockoutEnabled = true,
+                    Email = "Calle@test.com",
+                    Password = "Bas98Pmar@",
+                    NormalizedEmail = "Calle@test.com".ToUpper(),
+                    NormalizedUserName = "Calle".ToUpper(),
+                    TwoFactorEnabled = false,
+                    EmailConfirmed = true,
+                    PhoneNumber = "123456789",
+                    PhoneNumberConfirmed = false
+                };
+                users.Add(user);
+                modelBuilder.Entity<User>().HasData(user);
 
 
                 modelBuilder.Entity<Advertisement>().HasData(
@@ -145,8 +158,8 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         Value = 3,
                         RatedUserId = users.Where(u => u.UserName == "Calle").FirstOrDefault().Id,
                         RatingUserId = users.Where(u => u.UserName == "Erik").FirstOrDefault().Id,
-                    });             
-            }       
+                    });
+            }
 
             base.OnModelCreating(modelBuilder);
         }

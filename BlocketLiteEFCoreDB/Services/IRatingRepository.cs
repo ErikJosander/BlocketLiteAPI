@@ -1,6 +1,6 @@
-﻿using System;
-using BlocketLiteEFCoreDB.Entities;
+﻿using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
+using System;
 
 namespace BlocketLiteEFCoreDB.Services
 {

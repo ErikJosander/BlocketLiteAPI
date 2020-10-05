@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Mime;
 
 namespace BlocketLiteAPI.Controllers
@@ -45,12 +44,12 @@ namespace BlocketLiteAPI.Controllers
             {
                 return BadRequest();
             }
-                var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
-            if(advertismentsFromRepo == null)
+            var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+            if (advertismentsFromRepo == null)
             {
                 return NotFound();
             }
-           
+
             // format the given result as Json.
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
             return Ok(result);
@@ -72,7 +71,7 @@ namespace BlocketLiteAPI.Controllers
             {
                 return NotFound();
             }
-  
+
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
             adv.RealEstateType = _advertismentRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
             return Ok(adv);
@@ -122,11 +121,11 @@ namespace BlocketLiteAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
-            [FromBody]AdvertisementForCreationDto advertisement)
+            [FromBody] AdvertisementForCreationDto advertisement)
         {
             try
             {
-                if(advertisement == null)
+                if (advertisement == null)
                 {
                     return BadRequest("Advertisement object is null");
                 }
@@ -149,16 +148,16 @@ namespace BlocketLiteAPI.Controllers
                 _advertismentRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-               
+
                 return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO - create logging for errors
                 //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
                 return StatusCode(500, ex.Message);
             }
-           
+
         }
     }
 }

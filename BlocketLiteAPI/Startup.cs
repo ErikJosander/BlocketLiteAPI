@@ -1,12 +1,13 @@
 using AutoMapper;
-using BlocketLiteAPI.Authentications;
 using BlocketLiteEFCoreDB.DbContexts;
+using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -118,22 +119,48 @@ namespace BlocketLiteAPI
             services.AddScoped<IRatingRepository, RatingRepository>();
 
 
+
             // Gets the environment key-value.
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
+            // For Identity  
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<BlocketLiteContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddDbContext<BlocketLiteContext>(options =>
+            // Adding Authentication  
+            services.AddAuthentication(options =>
             {
-                if(environment == "Development")
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }) // Adding Jwt Bearer  
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    options.UseSqlServer(DbString.localDbString);
-                }
-                if(environment == "Production")
-                {
-                    options.UseSqlServer(DbString.azureDbString);
-                }
-                
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
             });
+
+            //services.AddDbContext<BlocketLiteContext>(options =>
+            //{
+            //    if(environment == "Development")
+            //    {
+            //        options.UseSqlServer(DbString.localDbString);
+            //    }
+            //    if(environment == "Production")
+            //    {
+            //        options.UseSqlServer(DbString.azureDbString);
+            //    }
+
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

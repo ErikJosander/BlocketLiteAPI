@@ -59,7 +59,7 @@ namespace BlocketLiteAPI.Controllers
                 userDto.RealEstates = _advertismentRepository.GetNumberOfProperties(user.Id);
                 userDto.Rating = _ratingRepository.GetAvarageRating(user.Id);
                 userList.Add(userDto);
-            }        
+            }
             return Ok(userList);
         }
 

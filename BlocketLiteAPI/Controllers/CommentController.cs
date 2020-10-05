@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -27,7 +26,7 @@ namespace BlocketLiteAPI.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-       
+
         /// <summary>
         /// This Get methode returns all comments in the DB
         /// </summary>
@@ -35,7 +34,7 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CommentDto>> GetAllComments()
         {
-            var commentsFromRepo = _commentRepository.GetAll();           
+            var commentsFromRepo = _commentRepository.GetAll();
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
 
@@ -75,7 +74,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
         [Authorize]
-        [HttpGet("ByUser/{USERNAME}")] 
+        [HttpGet("ByUser/{USERNAME}")]
         public ActionResult<IEnumerable<CommentDto>> GetComments(string USERNAME, int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)

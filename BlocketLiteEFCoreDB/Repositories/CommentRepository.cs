@@ -13,7 +13,7 @@ namespace BlocketLiteEFCoreDB.Repositories
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {
         private readonly BlocketLiteContext _context;
-        
+
         // Constructor
         public CommentRepository(BlocketLiteContext context) : base(context)
         {
