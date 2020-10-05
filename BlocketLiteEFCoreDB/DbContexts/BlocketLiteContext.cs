@@ -202,9 +202,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         Address = "BlPark123"
                     });
 
-
-<<<<<<< HEAD
-
                 modelBuilder.Entity<Comment>().HasData(
                     new Comment
                     {
@@ -260,7 +257,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         UserId = 6,
                         UserName = "Dracula"
                     });
-=======
+
             modelBuilder.Entity<Comment>().HasData(
                 new Comment
                 {
@@ -316,7 +313,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
                     UserId = 6,
                     UserName = "Dracula"
                 });
->>>>>>> 6cdbe1daac461b98a0510ae3813c369f3469857d
 
                 modelBuilder.Entity<Rating>().HasData(
                     new Rating

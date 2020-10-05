@@ -66,8 +66,6 @@ namespace BlocketLiteAPI.Controllers
         /// Creates an <see cref="User"/> and stores it in the DBContext 
         /// <br></br><see cref="UserForCreationDto.UserName"/> can not exist in the DB on aother <see cref="User"/>.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="user"></param>
         /// <returns><see cref="OkResult"/></returns>
         [Route("api/account/register")]
         [HttpPost]

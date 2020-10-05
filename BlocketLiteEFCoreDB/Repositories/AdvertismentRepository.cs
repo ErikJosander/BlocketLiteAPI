@@ -32,10 +32,8 @@ namespace BlocketLiteEFCoreDB.Repositories
         {
             var collection = _context.Advertisements as IQueryable<Advertisement>;
             if (take == 0) take = collection.Count();
-<<<<<<< HEAD
-=======
             if (take < 10) take = 10;
->>>>>>> 6cdbe1daac461b98a0510ae3813c369f3469857d
+
             if (skip < 0) skip = 0;
             if (skip > collection.Count()) skip = (collection.Count() - 1);
 
