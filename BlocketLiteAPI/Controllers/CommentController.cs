@@ -37,16 +37,19 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
-        //[Authorize]
+        [Authorize]
         [HttpGet("{realEstateId}")]
         public ActionResult<IEnumerable<CommentDto>> GetComments(int realEstateId, int skip = 0, int take = 10)
         {
+            if (skip < 0 || take < 0)
+            {
+                return BadRequest();
+            }
             var commentsFromRepo = _commentRepository.GetAllFromRealEstate(realEstateId, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
-
-
-            commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
+            // Is sorted in repository, no need here/MJ
+            //commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
             // format the given result as Json.
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
@@ -56,20 +59,24 @@ namespace BlocketLiteAPI.Controllers
         /// This GET method takes an <see cref="User.UserName"/> as input. 
         /// <br></br>And an optional <paramref name="skip"/> and <paramref name="take"/> search query
         /// </summary>
-        /// <param name="USERANAME"></param>
+        /// <param name="USERNAME"></param>
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
         [Authorize]
-        [HttpGet("ByUser/{USERANAME}")]
-        public ActionResult<IEnumerable<CommentDto>> GetComments(string USERANAME, int skip, int take)
+        [HttpGet("ByUser/{USERNAME}")] 
+        public ActionResult<IEnumerable<CommentDto>> GetComments(string USERNAME, int skip = 0, int take = 10)
         {
-            var commentsFromRepo = _commentRepository.GetAllFromUser(USERANAME, skip, take);
+            if (skip < 0 || take < 0)
+            {
+                return BadRequest();
+            }
+            var commentsFromRepo = _commentRepository.GetAllFromUser(USERNAME, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
 
-
-            commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
+             // Is sorted in repository, no need here/MJ
+            //commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
             // format the given result as Json.
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
