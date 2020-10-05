@@ -76,6 +76,7 @@ namespace BlocketLiteAPI.Controllers
             if (commentsFromRepo.Count == 0) return NotFound();
 
             // Is sorted in repository, no need here/MJ
+
             //commentsFromRepo = commentsFromRepo.OrderBy(d => d.CreatedOn).ToList();
             // format the given result as Json.
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));

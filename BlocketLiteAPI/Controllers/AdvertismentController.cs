@@ -4,16 +4,19 @@ using BlocketLiteAPI.Models.Advertisment;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 
 namespace BlocketLiteAPI.Controllers
 {
     /// <summary>
     /// Advertisment Controller responsible for GET/POST for managing the advertisments
     /// </summary>
+    [Produces("application/json")]
     [Route("api/RealEstates")]
     [ApiController]
     public class AdvertismentController : ControllerBase
@@ -62,7 +65,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="realestateId"></param>
         /// <returns>A <see cref="AdvertismentAdvancedDto"/></returns>
         [AllowAnonymous]
-        [HttpGet("{realestateId}")]
+        [HttpGet("{realestateId}", Name = "GetRealEstateById")]
         public ActionResult<AdvertismentAdvancedDto> GetRealEstate(int realestateId)
         {
             var advertismentFromRepo = _advertismentRepository.Get(realestateId);
@@ -85,7 +88,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="realEstateId"></param>
         /// <returns>An <see cref="AdvertismentMoreAdvancedDto"/></returns>
         [Authorize]
-        [HttpGet("{realEstateId}/secure")]
+        [HttpGet("{realEstateId}/secure")] //Remove /secure - when user identity is implemented
         public ActionResult<AdvertismentMoreAdvancedDto> GetRealEstateSecure(int realEstateId)
         {
             /// TODO fix the multiple method route probelm.
@@ -114,27 +117,49 @@ namespace BlocketLiteAPI.Controllers
         /// </summary>
         /// <param name="advertisement"></param>
         /// <returns>If Ok: <see cref="CreatedAtRouteResult"/> and an <see cref="AdvertismentSimpleDto"/></returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        public ActionResult<AdvertismentSimpleDto> CreateRealEstate(AdvertisementForCreationDto advertisement)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
+            [FromBody]AdvertisementForCreationDto advertisement)
         {
-            var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
+            try
+            {
+                if(advertisement == null)
+                {
+                    return BadRequest("Advertisement object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+                var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
-            string userName = User.Identity.Name;
-            int userId = _advertismentRepository.GetUserIdFromUserName(userName);
-            advertismentEntity.UserId = userId;
+                string userName = User.Identity.Name;
+                userName = "Johan"; // Remove, when user-identity model has been implemented!!
+                int userId = _advertismentRepository.GetUserIdFromUserName(userName);
+                advertismentEntity.UserId = userId;
 
+                if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
+                if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
+                advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
 
-            if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
-            if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
-            advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
+                _advertismentRepository.Add(advertismentEntity);
+                _advertismentRepository.Save();
 
-            _advertismentRepository.Add(advertismentEntity);
-            _advertismentRepository.Save();
-
-            // TODO not returning the correct path (can't find path when i posted)
-            var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-            return CreatedAtRoute(nameof(GetRealEstate), new { id = advertismentToReturn.Id }, advertismentToReturn);
+                var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
+               
+                return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
+            }
+            catch(Exception ex)
+            {
+                //TODO - create logging for errors
+                //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
+                return StatusCode(500, ex.Message);
+            }
+           
         }
     }
 }
