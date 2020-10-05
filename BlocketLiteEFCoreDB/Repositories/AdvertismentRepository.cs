@@ -1,6 +1,7 @@
 ﻿using BlocketLiteEFCoreDB.DbContexts;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         public IEnumerable<Advertisement> GetAll(int skip, int take)
         {
             var collection = _context.Advertisements as IQueryable<Advertisement>;
-            if (take > 100) take = 100;
+            if (take == 0) take = collection.Count();
             if (take < 10) take = 10;
             if (skip < 0) skip = 0;
             if (skip > collection.Count()) skip = (collection.Count() - 1);
