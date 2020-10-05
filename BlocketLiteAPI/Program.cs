@@ -33,16 +33,13 @@ namespace BlocketLiteAPI
                         // For production we need to know that the DB is created
                         context.Database.EnsureCreated();
                     }
-
                 }
                 catch (Exception ex)
                 {
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
-            }
-
-            
+            }           
             host.Run();
         }
 
