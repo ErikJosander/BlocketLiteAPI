@@ -108,7 +108,7 @@ namespace BlocketLiteAPI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddDbContext<BlocketLiteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+           
 
 
 
@@ -148,19 +148,19 @@ namespace BlocketLiteAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+            
+            services.AddDbContext<BlocketLiteContext>(options =>
+            {
+                if (environment == "Development")
+                {
+                    options.UseSqlServer(DbString.localDbString);
+                }
+                if (environment == "Production")
+                {
+                    options.UseSqlServer(DbString.azureDbString);
+                }
 
-            //services.AddDbContext<BlocketLiteContext>(options =>
-            //{
-            //    if(environment == "Development")
-            //    {
-            //        options.UseSqlServer(DbString.localDbString);
-            //    }
-            //    if(environment == "Production")
-            //    {
-            //        options.UseSqlServer(DbString.azureDbString);
-            //    }
-
-            //});
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
