@@ -107,24 +107,9 @@ namespace BlocketLiteAPI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            var key = "this is my test key";
-            services.AddSingleton<IJWTAuthenticationMananger>(new JWTAuthenticationMananger(key));
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+            services.AddDbContext<BlocketLiteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+
+
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();

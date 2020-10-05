@@ -14,6 +14,7 @@ namespace BlocketLiteEFCoreDB.Entities
         [Key]
         public int Id { get; set; }
 
+
         /// <summary>
         /// A value (<see cref="int"/>) rating from 1-5 an <see cref="User"/> can place on another <see cref="User"/>.
         /// </summary>
@@ -27,7 +28,7 @@ namespace BlocketLiteEFCoreDB.Entities
         /// </summary>
         [ForeignKey("RatedUserId")]
         public virtual User RatedUser { get; set; }
-        public int? RatedUserId { get; set; }
+        public string RatedUserId { get; set; }
 
 
         /// <summary>
@@ -35,6 +36,6 @@ namespace BlocketLiteEFCoreDB.Entities
         /// </summary>      
         [ForeignKey("RatingUserId")]
         public virtual User RatingUser { get; set; }
-        public int? RatingUserId { get; set; }
+        public string RatingUserId { get; set; }
     }
 }

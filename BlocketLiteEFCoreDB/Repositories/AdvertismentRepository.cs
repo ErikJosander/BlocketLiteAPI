@@ -69,7 +69,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns><see cref="User.UserName"/></returns>
-        public string GetUserNameFromUserId(int userId)
+        public string GetUserNameFromUserId(string userId)
         {
             var user = _context.Users.Where(pt => pt.Id == userId).FirstOrDefault();
             return user.UserName;
@@ -91,7 +91,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="User.Id"/></returns>
-        public int GetUserIdFromUserName(string userName)
+        public string GetUserIdFromUserName(string userName)
         {
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
             return user.Id;
@@ -103,7 +103,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Number of <see cref="Advertisement"/> <see cref="int"/></returns>
-        public int GetNumberOfProperties(int userId)
+        public int GetNumberOfProperties(string userId)
         {
             var collection = _context.Advertisements.Where(c => c.UserId == userId).ToList();
             return collection.Count();

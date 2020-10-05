@@ -106,7 +106,7 @@ namespace BlocketLiteAPI.Controllers
 
             // maps the RatingUserId
             string userName = User.Identity.Name;
-            int? userId = _commentRepository.GetUserIdFromUserName(userName);
+            string userId = _commentRepository.GetUserIdFromUserName(userName);
             ratingEntity.RatingUserId = userId;
             if (userId == rating.UserId)
             {

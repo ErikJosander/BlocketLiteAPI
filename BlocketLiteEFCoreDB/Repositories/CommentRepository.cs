@@ -99,7 +99,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="int"/></returns>
-        public int GetNumberOfComments(int userId)
+        public int GetNumberOfComments(string userId)
         {
             var collection = _context.Comments.Where(c => c.UserId == userId).ToList();
             return collection.Count();
@@ -111,7 +111,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="Comment.UserId"/></returns>
-        public int? GetUserIdFromUserName(string userName)
+        public string GetUserIdFromUserName(string userName)
         {
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
             return user.Id;

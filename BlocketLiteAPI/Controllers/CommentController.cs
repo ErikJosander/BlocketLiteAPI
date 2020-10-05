@@ -107,7 +107,7 @@ namespace BlocketLiteAPI.Controllers
             var commetEntity = _mapper.Map<Comment>(comment);
             commetEntity.CreatedOn = DateTime.Now;
             string userName = User.Identity.Name;
-            int? userId = _commentRepository.GetUserIdFromUserName(userName);
+            string userId = _commentRepository.GetUserIdFromUserName(userName);
             commetEntity.UserId = userId;
             commetEntity.UserName = userName;
 

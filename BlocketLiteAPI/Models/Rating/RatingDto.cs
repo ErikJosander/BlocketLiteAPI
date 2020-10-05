@@ -18,7 +18,7 @@ namespace BlocketLiteAPI.Models
         public int Value { get; set; }
 
         /// <summary>
-        /// The <see cref="User.Id"/> of the <see cref="User"/> who is rated.
+        /// The <see cref="User"/> id of the <see cref="User"/> who is rated.
         /// </summary>
         public int RatedUserId { get; set; }
 
@@ -28,7 +28,7 @@ namespace BlocketLiteAPI.Models
         public virtual string Username { get; set; }
 
         /// <summary>
-        /// The <see cref="User.Id"/> of the <see cref="User"/> who is rating.
+        /// The <see cref="User"/> id of the <see cref="User"/> who is rating.
         /// </summary>
         public int RatingUserId { get; set; }
     }

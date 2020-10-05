@@ -18,9 +18,9 @@ namespace BlocketLiteAPI.Models
 
 
         /// <summary>
-        /// The <see cref="User.Id"/> of the <see cref="User"/> who is rated.
+        /// The <see cref="User"/> of the <see cref="User"/> who is rated.
         /// </summary>
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -138,7 +138,7 @@ namespace BlocketLiteAPI.Controllers
 
                 string userName = User.Identity.Name;
                 //userName = "Johan"; // Remove, when user-identity model has been implemented!!
-                int userId = _advertismentRepository.GetUserIdFromUserName(userName);
+                string userId = _advertismentRepository.GetUserIdFromUserName(userName);
                 advertismentEntity.UserId = userId;
 
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;

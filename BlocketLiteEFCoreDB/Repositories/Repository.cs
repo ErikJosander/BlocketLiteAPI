@@ -33,6 +33,16 @@ namespace BlocketLiteEFCoreDB.Repositories
         }
 
         /// <summary>
+        /// Gets the <see cref="TEntity"/> when a correct <paramref name="id"/> is supplied. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A <typeparamref name="TEntity"/>.</returns>
+        public TEntity Get(string id)
+        {
+            return _contex.Set<TEntity>().Find(id);
+        }
+
+        /// <summary>
         /// Gets a <see cref="IEnumerable{T}"/> of the <see cref="TEntity"/>
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/></returns>
