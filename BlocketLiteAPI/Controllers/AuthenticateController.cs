@@ -70,7 +70,7 @@ namespace BlocketLiteAPI.Controllers
         {
             var userExists = await _userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Username allready exists." });
 
         
             User user = new User()

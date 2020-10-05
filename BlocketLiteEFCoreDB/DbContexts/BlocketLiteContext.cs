@@ -87,6 +87,10 @@ namespace BlocketLiteEFCoreDB.DbContexts
             if (environment == "Development")
             {
                 List<User> users = new List<User>();
+                modelBuilder.Entity<IdentityRole>().HasData(
+                   new IdentityRole { Name = "User", NormalizedName = "USER" });
+
+                // Create the user Erik
                 User user = new User
                 {
                     UserName = "Erik",
@@ -100,9 +104,13 @@ namespace BlocketLiteEFCoreDB.DbContexts
                     PhoneNumber = "123456789",
                     PhoneNumberConfirmed = false
                 };
+                PasswordHasher<User> ph1 = new PasswordHasher<User>();
+                user.PasswordHash = ph1.HashPassword(user, "Bas98Pmar@");             
                 users.Add(user);
                 modelBuilder.Entity<User>().HasData(user);
 
+
+                // Create the user Calle
                 user = new User
                 {
                     UserName = "Calle",
@@ -115,7 +123,8 @@ namespace BlocketLiteEFCoreDB.DbContexts
                     EmailConfirmed = true,
                     PhoneNumber = "123456789",
                     PhoneNumberConfirmed = false
-                };
+                };                                      
+                user.PasswordHash = ph1.HashPassword(user, "Bas98Pmar@");
                 users.Add(user);
                 modelBuilder.Entity<User>().HasData(user);
 
