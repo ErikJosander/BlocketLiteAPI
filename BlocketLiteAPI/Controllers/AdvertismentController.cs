@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.Net.Mime;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -39,12 +39,7 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>An <see cref="IEnumerable{T}"/> as a list of <see cref="AdvertismentSimpleDto"/></returns>
         [AllowAnonymous]
         [HttpGet]
-<<<<<<< HEAD
-        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments(
-=======
-        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments([FromQuery]
->>>>>>> 6cdbe1daac461b98a0510ae3813c369f3469857d
-           int skip = 0, int take = 0)
+        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments(int skip = 0, int take = 0)
         {
             if (skip < 0 || take < 0)
             {
@@ -95,7 +90,7 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet("{realEstateId}/secure")] //Remove /secure - when user identity is implemented
         public ActionResult<AdvertismentMoreAdvancedDto> GetRealEstateSecure(int realEstateId)
         {
-            /// TODO fix the multiple method route probelm.
+            // TODO fix the multiple method route probelm.
             var advertismentFromRepo = _advertismentRepository.Get(realEstateId);
             if (advertismentFromRepo == null)
             {
@@ -121,7 +116,7 @@ namespace BlocketLiteAPI.Controllers
         /// </summary>
         /// <param name="advertisement"></param>
         /// <returns>If Ok: <see cref="CreatedAtRouteResult"/> and an <see cref="AdvertismentSimpleDto"/></returns>
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -142,7 +137,7 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
-                userName = "Johan"; // Remove, when user-identity model has been implemented!!
+                //userName = "Johan"; // Remove, when user-identity model has been implemented!!
                 int userId = _advertismentRepository.GetUserIdFromUserName(userName);
                 advertismentEntity.UserId = userId;
 

@@ -32,12 +32,8 @@ namespace BlocketLiteAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-<<<<<<< Updated upstream
-
             services.AddSwaggerGen(setupAction =>
-=======
             services.AddSwaggerGen(options =>
->>>>>>> Stashed changes
             {
                 setupAction.SwaggerDoc("BlocketLiteAPISpecification",
                     new Microsoft.OpenApi.Models.OpenApiInfo
@@ -54,7 +50,7 @@ namespace BlocketLiteAPI
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 setupAction.IncludeXmlComments(filePath);
-            });
+            }));
 
             services.AddControllers(setupAction =>
             {
