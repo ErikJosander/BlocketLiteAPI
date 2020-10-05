@@ -132,10 +132,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
                     });
 
 
-
-             
-
-
                 modelBuilder.Entity<Advertisement>().HasData(
                     new Advertisement()
                     {
@@ -256,64 +252,8 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         CreatedOn = DateTime.Now,
                         UserId = 6,
                         UserName = "Dracula"
-                    });
-
-            modelBuilder.Entity<Comment>().HasData(
-                new Comment
-                {
-                    Id = 1,
-                    AdvertisementId = 1,
-                    Content = "First comment by Calle",
-                    CreatedOn = DateTime.Now,
-                    UserId = 1,
-                    UserName = "Calle"
-                },
-                new Comment
-                {
-                    Id = 2,
-                    AdvertisementId = 2,
-                    Content = "huml, humla humla. Comment 2",
-                    CreatedOn = DateTime.Now,
-                    UserId = 2,
-                    UserName = "Johan"
-                },
-                new Comment
-                {
-                    Id = 3,
-                    AdvertisementId = 1,
-                    Content = "Cool, what is this",
-                    CreatedOn = DateTime.Now,
-                    UserId = 3,
-                    UserName = "Alex"
-                },
-                new Comment
-                {
-                    Id = 4,
-                    AdvertisementId = 1,
-                    Content = "What is wrong with this comment",
-                    CreatedOn = DateTime.Now.AddDays(-1),
-                    UserId = 1,
-                    UserName = "Calle"
-                },
-                new Comment
-                {
-                    Id = 5,
-                    AdvertisementId = 4,
-                    Content = "What is this? Really cheap",
-                    CreatedOn = DateTime.Now,
-                    UserId = 5,
-                    UserName = "Jamie"
-                },
-                new Comment
-                {
-                    Id = 6,
-                    AdvertisementId = 4,
-                    Content = "Yes, i need new host in the castle",
-                    CreatedOn = DateTime.Now,
-                    UserId = 6,
-                    UserName = "Dracula"
-                });
-
+                    });               
+        
                 modelBuilder.Entity<Rating>().HasData(
                     new Rating
                     {
