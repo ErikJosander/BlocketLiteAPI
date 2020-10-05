@@ -100,6 +100,7 @@ namespace BlocketLiteAPI
                 });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             var key = "this is my test key";
             services.AddSingleton<IJWTAuthenticationMananger>(new JWTAuthenticationMananger(key));
             services.AddAuthentication(x =>
