@@ -1,4 +1,5 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -7,7 +8,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
     /// <summary>
     /// A Context Class that inherits from <see cref="DbContext"/>. <see cref="BlocketLiteContext"/> also seeds and implements rules for the DB.
     /// </summary>
-    public class BlocketLiteContext : DbContext
+    public class BlocketLiteContext : IdentityDbContext
     {
         // Constructor
         public BlocketLiteContext(DbContextOptions<BlocketLiteContext> options)

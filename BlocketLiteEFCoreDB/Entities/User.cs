@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,21 +9,14 @@ namespace BlocketLiteEFCoreDB.Entities
     /// <summary>
     /// Public <see cref="Entities"/> that is stored in the DB.
     /// </summary>
-    public class User
-    {
-        /// <summary>
-        /// Unique identifier
-        /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
+    public class User : IdentityUser
+    { 
         /// <summary>
         /// The users username.. duh
         /// </summary>
         [Required]
         [MaxLength(50)]
-        public string UserName { get; set; }
+        public override string UserName { get; set; }
 
 
         /// <summary>
@@ -31,7 +25,7 @@ namespace BlocketLiteEFCoreDB.Entities
         [Required]
         [EmailAddress]
         [MaxLength(50)]
-        public string Email { get; set; }
+        public override string Email { get; set; }
 
 
         /// <summary>

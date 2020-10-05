@@ -2,8 +2,8 @@
 
 namespace BlocketLiteAPI.Authentications
 {
-    public interface IJWTAuthenticationMananger
-    {
-        string Authentication(User user, string password);
-    }
+    //public interface IJWTAuthenticationMananger
+    //{
+    //    string Authentication(User user, string password);
+    //}
 }
