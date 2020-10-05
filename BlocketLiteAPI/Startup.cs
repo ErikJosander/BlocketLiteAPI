@@ -33,18 +33,23 @@ namespace BlocketLiteAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(setupAction =>
             {
-                options.SwaggerDoc("v1",
+                setupAction.SwaggerDoc("BlocketLiteAPISpecification",
                     new Microsoft.OpenApi.Models.OpenApiInfo
                     {
-                        Title = "Swagger Demo API",
-                        Description = "Demo API for swagger",
-                        Version = "v1"
+                        Title = "BlocketLiteAPI",
+                        Description = "Through this API you can get information about real estate ads. It has functionality" +
+                        " to login users, register them, and through authentication, divorse between  authorized services " +
+                        " and not. There are also functionality to make comments, rate the ads and more.",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Name = "Joachim, Erik, Maria"
+                        }
                     });
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-                options.IncludeXmlComments(filePath);
+                setupAction.IncludeXmlComments(filePath);
             });
             services.AddControllers(setupAction =>
             {
@@ -162,7 +167,8 @@ namespace BlocketLiteAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
 
             app.UseSwagger();
