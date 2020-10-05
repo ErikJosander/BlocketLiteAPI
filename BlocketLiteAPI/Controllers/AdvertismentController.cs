@@ -4,16 +4,18 @@ using BlocketLiteAPI.Models.Advertisment;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Net.Mime;
 
 namespace BlocketLiteAPI.Controllers
 {
     /// <summary>
     /// Advertisment Controller responsible for GET/POST for managing the advertisments
     /// </summary>
+    [Produces("application/json")]
     [Route("api/RealEstates")]
     [ApiController]
     public class AdvertismentController : ControllerBase
@@ -77,7 +79,7 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="realEstateId"></param>
         /// <returns>An <see cref="AdvertismentMoreAdvancedDto"/></returns>
         [Authorize]
-        [HttpGet("{realEstateId}/secure")]
+        [HttpGet("{realEstateId}/secure")] //Remove /secure - when user identity is implemented
         public ActionResult<AdvertismentMoreAdvancedDto> GetRealEstateSecure(int realEstateId)
         {
             /// TODO fix the multiple method route probelm.
@@ -108,6 +110,9 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>If Ok: <see cref="CreatedAtRouteResult"/> and an <see cref="AdvertismentSimpleDto"/></returns>
         //[Authorize]
         [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
             [FromBody]AdvertisementForCreationDto advertisement)
         {
@@ -124,37 +129,26 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
-                userName = "Johan"; // Remove!!
-                System.Diagnostics.Debug.WriteLine("userName = " + userName); // Remove!!
+                userName = "Johan"; // Remove, when user-identity model has been implemented!!
                 int userId = _advertismentRepository.GetUserIdFromUserName(userName);
-                Debug.WriteLine("userId" + userId);
-                System.Diagnostics.Debug.WriteLine("userId = " + userId); // Remove!!
                 advertismentEntity.UserId = userId;
-
 
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
                 if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
                 advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
 
                 _advertismentRepository.Add(advertismentEntity);
-                Debug.WriteLine("*********************************************************");
                 _advertismentRepository.Save();
-                Debug.WriteLine("9999999999999999999999999999999999999999999999999999999");
 
-                // TODO not returning the correct path (can't find path when i posted)
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-                Debug.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Debug.WriteLine(advertismentToReturn.Id);
-                var routeResult = CreatedAtRoute(nameof(GetRealEstate), new {id = advertismentToReturn.Id }, advertismentEntity);
-                Debug.WriteLine("routeResult.RouteName = ", routeResult.RouteName);
-                Debug.WriteLine("routeResult.RouteName.ToString() = ", routeResult.ToString());
-                return routeResult;
+               
+                return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
             }
             catch(Exception ex)
             {
                 //TODO - create logging for errors
                 //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
-                return StatusCode(500, "Internal  server error");
+                return StatusCode(500, ex.Message);
             }
            
         }

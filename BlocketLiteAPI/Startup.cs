@@ -148,7 +148,8 @@ namespace BlocketLiteAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
 
             app.UseSwagger();
