@@ -12,7 +12,7 @@ namespace BlocketLiteAPI.Models
         /// The foreign key to an <see cref="Advertisement"/>
         /// </summary>
         [Required]
-        public int AdvertisementId { get; set; }
+        public int RealEstateId { get; set; }
 
         /// <summary>
         /// The content of the <see cref="Comment"/>

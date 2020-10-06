@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlocketLiteAPI.Models;
+using BlocketLiteAPI.Models.User;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -120,6 +121,27 @@ namespace BlocketLiteAPI.Controllers
 
             // TODO not returning the correct path (can't find path when i posted)
             return Ok();
+        }
+
+
+        /// <summary>
+        /// This GET method returns an <see cref="OkResult"/> and an <see cref="UserIdDto"/> if the <see cref="User.UserName"/>
+        /// <br></br>is equal to the <paramref name="USERNAME"/>
+        /// </summary>
+        /// <param name="USERNAME"></param>
+        /// <returns><see cref="OkResult"/> and an <see cref="UserIdDto"/></returns>
+        [HttpGet("UserId/{USERNAME}")]
+        public IActionResult GetUserId(string USERNAME)
+        {
+            var userFromRepo = _userRepository.GetFromUserName(USERNAME);
+            if (userFromRepo == null)
+            {
+                return NotFound();
+            }
+            var userIdDto = new UserIdDto();
+            userIdDto.UserId = userFromRepo.Id;
+            userIdDto.UserName = userFromRepo.UserName;
+            return Ok(userIdDto);
         }
     }
 }
