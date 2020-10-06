@@ -108,10 +108,6 @@ namespace BlocketLiteAPI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-           
-
-
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertismentRepository>();
@@ -119,12 +115,11 @@ namespace BlocketLiteAPI
             services.AddScoped<IRatingRepository, RatingRepository>();
 
 
-
             // Gets the environment key-value.
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             // For Identity  
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole<string>>()
                 .AddEntityFrameworkStores<BlocketLiteContext>()
                 .AddDefaultTokenProviders();
 
