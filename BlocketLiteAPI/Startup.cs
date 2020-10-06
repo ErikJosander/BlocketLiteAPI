@@ -34,6 +34,7 @@ namespace BlocketLiteAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Swagger
             services.AddSwaggerGen(setupAction =>
             services.AddSwaggerGen(options =>
             {
@@ -54,6 +55,7 @@ namespace BlocketLiteAPI
                 setupAction.IncludeXmlComments(filePath);
             }));
 
+            // XML
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -107,13 +109,16 @@ namespace BlocketLiteAPI
                     };
                 });
 
+            // Add cors
             services.AddCors(options => options.AddPolicy("AllowEverything",
                 builder => builder.AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()));
 
+            // Automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // Interfaces and repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertismentRepository>();
@@ -150,6 +155,7 @@ namespace BlocketLiteAPI
                 };
             });
             
+            // Add Context
             services.AddDbContext<BlocketLiteContext>(options =>
             {
                 if (environment == "Development")
