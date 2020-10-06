@@ -136,7 +136,6 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
-                //userName = "Johan"; // Remove, when user-identity model has been implemented!!
                 string userId = _advertismentRepository.GetUserIdFromUserName(userName);
                 advertismentEntity.UserId = userId;
 
