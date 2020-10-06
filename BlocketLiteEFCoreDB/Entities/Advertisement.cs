@@ -26,6 +26,12 @@ namespace BlocketLiteEFCoreDB.Entities
         [MinLength(5), MaxLength(50)]
         public string Title { get; set; }
 
+
+        /// <summary>
+        /// A link to a picture
+        /// </summary>
+        public string ImageUrl { get; set; }
+
         /// <summary>
         /// A description of the advertisment
         /// </summary>

@@ -93,7 +93,7 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>Returns <see cref="BadRequestResult"/> if the user tries to rate him/herself.
         /// <para></para>Else <see cref="OkResult"/></returns>
         [Authorize]
-        [HttpPost("Rate")]
+        [HttpPut("Rate")]
         public IActionResult RateUser(RatingForCreationDto rating)
         {
             var userToRate = _userRepository.Get(rating.UserId);

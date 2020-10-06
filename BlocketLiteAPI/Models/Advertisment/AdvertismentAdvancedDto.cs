@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 
 namespace BlocketLiteAPI.Models
 {
@@ -16,6 +17,16 @@ namespace BlocketLiteAPI.Models
         /// The title of the advertisment
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// The Username of the user who has posted the 
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// A link to picture
+        /// </summary>
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// The description of the advertisment

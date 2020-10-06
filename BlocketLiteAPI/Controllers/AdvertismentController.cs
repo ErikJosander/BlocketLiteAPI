@@ -22,12 +22,15 @@ namespace BlocketLiteAPI.Controllers
     {
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
         public AdvertismentController(IAdvertisementRepository advertisementRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IUserRepository userRepository)
         {
             _advertisementRepository = advertisementRepository ?? throw new ArgumentNullException(nameof(advertisementRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -50,8 +53,10 @@ namespace BlocketLiteAPI.Controllers
 
             {
                 return NotFound();
-            }           
+            }       
+               
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
+         
             return Ok(result);
         }
 
@@ -74,6 +79,8 @@ namespace BlocketLiteAPI.Controllers
 
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
             adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
+            adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
+
             return Ok(adv);
         }
 
