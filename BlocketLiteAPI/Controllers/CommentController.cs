@@ -7,11 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
-using System.Diagnostics;
-using System.Linq;
-=======
->>>>>>> feature/azure
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -83,11 +78,8 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
         [Authorize]
-<<<<<<< HEAD
-        [HttpGet("ByUser/{USERNAME}", Name = "GetCommentsByUserName")] 
-=======
+
         [HttpGet("ByUser/{USERNAME}")]
->>>>>>> feature/azure
         public ActionResult<IEnumerable<CommentDto>> GetComments(string USERNAME, int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)
@@ -118,13 +110,12 @@ namespace BlocketLiteAPI.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<UserDto> CreateComment(int advertisementId,[FromBody]CommentForCreationDto comment)
+        public ActionResult<UserDto> CreateComment(int advertisementId, [FromBody] CommentForCreationDto comment)
         {
-<<<<<<< HEAD
             try
             {
                 //TODO check if the advertisement exists
-                if(comment == null)
+                if (comment == null)
                 {
                     return BadRequest("Comment object is null");
                 }
@@ -132,37 +123,29 @@ namespace BlocketLiteAPI.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
-                var commentEntity = _mapper.Map<Comment>(comment);
-                commentEntity.CreatedOn = DateTime.Now;
-                string userName = User.Identity.Name;
-                userName = "Calle"; //Remove! Temporary tests
-                int? userId = _commentRepository.GetUserIdFromUserName(userName);
-                
-                commentEntity.UserId = userId;
-                commentEntity.UserName = userName;
-=======
-            var commetEntity = _mapper.Map<Comment>(comment);
-            commetEntity.CreatedOn = DateTime.Now;
-            string userName = User.Identity.Name;
-            string userId = _commentRepository.GetUserIdFromUserName(userName);
-            commetEntity.UserId = userId;
-            commetEntity.UserName = userName;
->>>>>>> feature/azure
 
-                _commentRepository.Add(commentEntity);
+                var commetEntity = _mapper.Map<Comment>(comment);
+                commetEntity.CreatedOn = DateTime.Now;
+                string userName = User.Identity.Name;
+                string userId = _commentRepository.GetUserIdFromUserName(userName);
+                commetEntity.UserId = userId;
+                commetEntity.UserName = userName;
+
+
+                _commentRepository.Add(commetEntity);
                 _commentRepository.Save();
 
                 // TODO not returning the correct path (can't find path when i posted)
-                var commentToReturn = _mapper.Map<CommentDto>(commentEntity);
+                var commentToReturn = _mapper.Map<CommentDto>(commetEntity);
                 //var x = CreatedAtRoute("GetCommentsForARealEstate", new { commentEntity.Id }, commentToReturn);
                 //return (x);
-                return CreatedAtAction("GetCommentById", new { commentEntity.Id }, commentToReturn);
+                return CreatedAtAction("GetCommentById", new { commetEntity.Id }, commentToReturn);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
-          
+
         }
 
         // Only for routing ===> TESTING

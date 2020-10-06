@@ -44,13 +44,10 @@ namespace BlocketLiteAPI.Controllers
             {
                 return BadRequest();
             }
-<<<<<<< HEAD
-                var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
-            if(advertismentsFromRepo == null)
-=======
-            var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+
+            var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
             if (advertismentsFromRepo == null)
->>>>>>> feature/azure
+
             {
                 return NotFound();
             }
@@ -141,12 +138,10 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
-<<<<<<< HEAD
-                userName = "Johan"; // For test. Remove!
-                int userId = _advertisementRepository.GetUserIdFromUserName(userName);
-=======
-                string userId = _advertismentRepository.GetUserIdFromUserName(userName);
->>>>>>> feature/azure
+
+                string userId = _advertisementRepository.GetUserIdFromUserName(userName);
+
+
                 advertismentEntity.UserId = userId;
 
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
@@ -157,13 +152,9 @@ namespace BlocketLiteAPI.Controllers
                 _advertisementRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-<<<<<<< HEAD
-               
-                return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
-=======
 
-                return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
->>>>>>> feature/azure
+                return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
+
             }
             catch (Exception ex)
             {

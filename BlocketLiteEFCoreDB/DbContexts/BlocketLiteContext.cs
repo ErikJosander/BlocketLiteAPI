@@ -86,51 +86,6 @@ namespace BlocketLiteEFCoreDB.DbContexts
             var environment = (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
             if (environment == "Development")
             {
-<<<<<<< HEAD
-                modelBuilder.Entity<User>().HasData(
-                    new User()
-                    {
-                        Id = 1,
-                        UserName = "Calle",
-                        Email = "Erik@gmail.com",
-                        Password = "123apa!"
-                    },
-                    new User()
-                    {
-                        Id = 2,
-                        UserName = "Johan",
-                        Email = "Johan@gmail.com",
-                        Password = "123"
-                    },
-                    new User()
-                    {
-                        Id = 3,
-                        UserName = "Alex",
-                        Email = "Alex@gmail.com",
-                        Password = "123"
-                    },
-                    new User()
-                    {
-                        Id = 4,
-                        UserName = "Samuel",
-                        Email = "Samuel@gmail.com",
-                        Password = "123"
-                    },
-                    new User()
-                    {
-                        Id = 5,
-                        UserName = "Jamie",
-                        Email = "Jamie@gmail.com",
-                        Password = "123"
-                    },
-                    new User()
-                    {
-                        Id = 6,
-                        UserName = "Dracula",
-                        Email = "Dracula@gmail.com",
-                        Password = "123"
-                    });
-=======
                 List<User> users = new List<User>();
                 modelBuilder.Entity<IdentityRole>().HasData(
                    new IdentityRole { Name = "User", NormalizedName = "USER" });
@@ -172,7 +127,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
                 user.PasswordHash = ph1.HashPassword(user, "Bas98Pmar@");
                 users.Add(user);
                 modelBuilder.Entity<User>().HasData(user);
->>>>>>> feature/azure
+
 
 
                 modelBuilder.Entity<Advertisement>().HasData(
