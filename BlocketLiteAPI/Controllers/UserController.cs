@@ -13,7 +13,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// User Controller responsible for GET/POST for managing the users
     /// </summary>
-    [EnableCors("AllowEverything")]
+
     [ApiController]
     [Route("api/Users")]
     public class UserController : ControllerBase

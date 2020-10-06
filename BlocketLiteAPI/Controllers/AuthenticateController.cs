@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
-    [EnableCors("AllowEverything")]
+  
     [ApiController]
     public class AuthenticateController : ControllerBase
     {

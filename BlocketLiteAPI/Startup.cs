@@ -27,6 +27,7 @@ namespace BlocketLiteAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+  
         }
 
         public IConfiguration Configuration { get; }
@@ -106,6 +107,11 @@ namespace BlocketLiteAPI
                     };
                 });
 
+            services.AddCors(options => options.AddPolicy("AllowEverything",
+                builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IUserRepository, UserRepository>();
@@ -165,6 +171,8 @@ namespace BlocketLiteAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowEverything");
+
             app.UseRouting();
 
             app.UseHttpsRedirection();
@@ -172,6 +180,7 @@ namespace BlocketLiteAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

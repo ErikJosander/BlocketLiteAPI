@@ -3,6 +3,7 @@ using BlocketLiteAPI.Models;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,7 +14,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// Comment Controller responsible for GET/POST for managing the comments
     /// </summary>
-    [EnableCors("AllowEverything")]
+  
     [Route("api/comments")]
     [ApiController]
     public class CommentController : ControllerBase

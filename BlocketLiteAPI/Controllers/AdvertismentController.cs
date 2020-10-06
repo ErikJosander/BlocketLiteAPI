@@ -4,6 +4,7 @@ using BlocketLiteAPI.Models.Advertisment;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// Advertisment Controller responsible for GET/POST for managing the advertisments
     /// </summary>
-    [EnableCors("AllowEverything")]
+    
     [Produces("application/json")]
     [Route("api/RealEstates")]
     [ApiController]
