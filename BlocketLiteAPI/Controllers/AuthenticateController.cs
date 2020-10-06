@@ -1,6 +1,7 @@
 ﻿using BlocketLiteAPI.Models;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
-    [Route("api/account")]
+   
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -33,9 +34,13 @@ namespace BlocketLiteAPI.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto model)
+        [Route("token")]
+        [Consumes("application/x-www-form-urlencoded")]
+        public async Task<IActionResult> Login([FromForm] IFormCollection value)
         {
+            var model = new LoginDto();
+            model.UserName = value["UserName"];
+            model.UserName = value["Password"];
             var user = _userRepository.GetFromUserName(model.UserName);
             if (await _userManager.CheckPasswordAsync(user, model.Password))
             {             
@@ -55,9 +60,15 @@ namespace BlocketLiteAPI.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
+                TimeSpan ts = token.ValidTo - token.ValidFrom;
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    access_token = new JwtSecurityTokenHandler().WriteToken(token),
+                    token_type = "bearer",
+                    expires_in = ts.TotalSeconds,
+                    expires_test = await HttpContext.GetTokenAsync("expires_at"),
+                    userName = User.Identity.Name,
+                    issued = token.ValidFrom,
                     expiration = token.ValidTo
                 });
             }
@@ -65,7 +76,7 @@ namespace BlocketLiteAPI.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("api/account/register")]
         [Consumes("application/x-www-form-urlencoded")]                       
         public async Task<IActionResult> Register([FromForm] IFormCollection value)
         {
