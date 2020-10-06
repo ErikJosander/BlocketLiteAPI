@@ -111,15 +111,13 @@ namespace BlocketLiteAPI.Controllers
             ratingEntity.RatingUserId = userId;
             if (userId == rating.UserId)
             {
-                // TODO add proper errormessage
-                return BadRequest();
+                return StatusCode(500, new Response { Status = "Error", Message = "Users can not rate themselves" });
             }
 
             // adds the new entity to the database and saves it
             _ratingRepository.Add(ratingEntity);
             _ratingRepository.Save();
 
-            // TODO not returning the correct path (can't find path when i posted)
             return Ok();
         }
 

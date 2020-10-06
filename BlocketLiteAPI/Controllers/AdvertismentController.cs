@@ -47,7 +47,6 @@ namespace BlocketLiteAPI.Controllers
             {
                 return BadRequest();
             }
-
             var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
             if (advertismentsFromRepo == null)
 
@@ -56,7 +55,6 @@ namespace BlocketLiteAPI.Controllers
             }       
                
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
-         
             return Ok(result);
         }
 
@@ -105,7 +103,7 @@ namespace BlocketLiteAPI.Controllers
 
             AdvertismentMoreAdvancedDto adv = _mapper.Map<AdvertismentMoreAdvancedDto>(advertismentFromRepo);
             adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
-
+            adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
             var comments = _advertisementRepository.GetComments(advertismentFromRepo.Id);
             foreach (Comment comment in comments)
             {

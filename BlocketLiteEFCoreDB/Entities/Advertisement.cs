@@ -26,7 +26,6 @@ namespace BlocketLiteEFCoreDB.Entities
         [MinLength(5), MaxLength(50)]
         public string Title { get; set; }
 
-
         /// <summary>
         /// A link to a picture
         /// </summary>
@@ -38,7 +37,6 @@ namespace BlocketLiteEFCoreDB.Entities
         [Required]
         [MinLength(10), MaxLength(1000)]
         public string Description { get; set; }
-
 
         /// <summary>
         /// The year-of-build. Needs to be 4-digits.
