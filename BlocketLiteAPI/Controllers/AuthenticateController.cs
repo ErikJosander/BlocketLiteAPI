@@ -40,7 +40,7 @@ namespace BlocketLiteAPI.Controllers
         {
             var model = new LoginDto();
             model.UserName = value["UserName"];
-            model.UserName = value["Password"];
+            model.Password = value["Password"];
             var user = _userRepository.GetFromUserName(model.UserName);
             if (await _userManager.CheckPasswordAsync(user, model.Password))
             {             
@@ -60,15 +60,14 @@ namespace BlocketLiteAPI.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                TimeSpan ts = token.ValidTo - token.ValidFrom;
+                TimeSpan ts = token.ValidTo - DateTimeOffset.UtcNow;
                 return Ok(new
                 {
                     access_token = new JwtSecurityTokenHandler().WriteToken(token),
                     token_type = "bearer",
                     expires_in = ts.TotalSeconds,
-                    expires_test = await HttpContext.GetTokenAsync("expires_at"),
-                    userName = User.Identity.Name,
-                    issued = token.ValidFrom,
+                    userName = model.UserName,
+                    issued = DateTimeOffset.UtcNow,
                     expiration = token.ValidTo
                 });
             }
@@ -90,7 +89,10 @@ namespace BlocketLiteAPI.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Username allready exists." });
 
-        
+            var emailExists = await _userManager.FindByEmailAsync(model.Email);
+            if (emailExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Email allready exists." });
+
             User user = new User()
             {              
                 Email = model.Email,
