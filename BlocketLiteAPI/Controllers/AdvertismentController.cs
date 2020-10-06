@@ -50,9 +50,7 @@ namespace BlocketLiteAPI.Controllers
 
             {
                 return NotFound();
-            }
-
-            // format the given result as Json.
+            }           
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
             return Ok(result);
         }

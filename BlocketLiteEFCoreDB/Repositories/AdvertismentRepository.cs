@@ -46,9 +46,7 @@ namespace BlocketLiteEFCoreDB.Repositories
                 take = collection.Count() - skip;
                 collectionOutput = collection.ToList().GetRange(skip, take);
             }
-
             collectionOutput = collectionOutput.OrderByDescending(a => a.CreatedOn).ToList();
-
             return collectionOutput;
         }
 
