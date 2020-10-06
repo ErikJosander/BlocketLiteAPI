@@ -9,9 +9,9 @@ using System.Linq;
 namespace BlocketLiteEFCoreDB.Repositories
 {
     /// <summary>
-    /// Repository that implements <see cref="IAdvertismentRepository"/>
+    /// Repository that implements <see cref="IAdvertisementRepository"/>
     /// </summary>
-    public class AdvertismentRepository : Repository<Advertisement>, IAdvertismentRepository
+    public class AdvertismentRepository : Repository<Advertisement>, IAdvertisementRepository
     {
         private readonly BlocketLiteContext _context;
 

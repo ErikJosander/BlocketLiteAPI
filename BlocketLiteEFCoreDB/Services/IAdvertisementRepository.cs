@@ -7,7 +7,7 @@ namespace BlocketLiteEFCoreDB.Services
     /// <summary>
     /// Interface that defins contracts for the <see cref="AdvertismentRepository"/>
     /// </summary>
-    public interface IAdvertismentRepository : IRepository<Advertisement>
+    public interface IAdvertisementRepository : IRepository<Advertisement>
     {
         /// <summary>
         /// Gets all the <see cref="Advertisement"/> from the DB. Optional <paramref name="skip"/> and <paramref name="take"/> parameters.

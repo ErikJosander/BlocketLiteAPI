@@ -93,7 +93,7 @@ namespace BlocketLiteEFCoreDB.DbContexts
                         Id = 1,
                         UserName = "Calle",
                         Email = "Erik@gmail.com",
-                        Password = "123"
+                        Password = "123apa!"
                     },
                     new User()
                     {

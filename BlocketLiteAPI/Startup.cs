@@ -128,7 +128,7 @@ namespace BlocketLiteAPI
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
-            services.AddScoped<IAdvertismentRepository, AdvertismentRepository>();
+            services.AddScoped<IAdvertisementRepository, AdvertismentRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
 

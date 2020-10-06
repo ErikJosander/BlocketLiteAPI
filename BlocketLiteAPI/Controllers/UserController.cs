@@ -17,21 +17,21 @@ namespace BlocketLiteAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAdvertismentRepository _advertismentRepository;
+        private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IRatingRepository _ratingRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
 
 
         public UserController(IUserRepository userRepository,
-            IAdvertismentRepository advertismentRepository,
+            IAdvertisementRepository advertisementRepository,
             IRatingRepository ratingRepository,
             ICommentRepository commentRepository,
             IMapper mapper)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
 
-            _advertismentRepository = advertismentRepository ?? throw new ArgumentNullException(nameof(advertismentRepository));
+            _advertisementRepository = advertisementRepository ?? throw new ArgumentNullException(nameof(advertisementRepository));
 
             _ratingRepository = ratingRepository ?? throw new ArgumentNullException(nameof(ratingRepository));
 
@@ -56,7 +56,7 @@ namespace BlocketLiteAPI.Controllers
             {
                 var userDto = (_mapper.Map<UserDto>(user));
                 userDto.Comments = _commentRepository.GetNumberOfComments(user.Id);
-                userDto.RealEstates = _advertismentRepository.GetNumberOfProperties(user.Id);
+                userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(user.Id);
                 userDto.Rating = _ratingRepository.GetAvarageRating(user.Id);
                 userList.Add(userDto);
             }        
@@ -79,7 +79,7 @@ namespace BlocketLiteAPI.Controllers
             }
             var userDto = (_mapper.Map<UserDto>(userFromRepo));
             userDto.Comments = _commentRepository.GetNumberOfComments(userFromRepo.Id);
-            userDto.RealEstates = _advertismentRepository.GetNumberOfProperties(userFromRepo.Id);
+            userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(userFromRepo.Id);
             userDto.Rating = _ratingRepository.GetAvarageRating(userFromRepo.Id);
 
             return Ok(userDto);

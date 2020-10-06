@@ -21,13 +21,13 @@ namespace BlocketLiteAPI.Controllers
     [ApiController]
     public class AdvertismentController : ControllerBase
     {
-        private readonly IAdvertismentRepository _advertismentRepository;
+        private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IMapper _mapper;
 
-        public AdvertismentController(IAdvertismentRepository advertismentRepository,
+        public AdvertismentController(IAdvertisementRepository advertisementRepository,
             IMapper mapper)
         {
-            _advertismentRepository = advertismentRepository ?? throw new ArgumentNullException(nameof(advertismentRepository));
+            _advertisementRepository = advertisementRepository ?? throw new ArgumentNullException(nameof(advertisementRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -45,7 +45,7 @@ namespace BlocketLiteAPI.Controllers
             {
                 return BadRequest();
             }
-                var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+                var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
             if(advertismentsFromRepo == null)
             {
                 return NotFound();
@@ -67,14 +67,14 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet("{realestateId}", Name = "GetRealEstateById")]
         public ActionResult<AdvertismentAdvancedDto> GetRealEstate(int realestateId)
         {
-            var advertismentFromRepo = _advertismentRepository.Get(realestateId);
+            var advertismentFromRepo = _advertisementRepository.Get(realestateId);
             if (advertismentFromRepo == null)
             {
                 return NotFound();
             }
   
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
-            adv.RealEstateType = _advertismentRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
+            adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
             return Ok(adv);
         }
 
@@ -91,16 +91,16 @@ namespace BlocketLiteAPI.Controllers
         public ActionResult<AdvertismentMoreAdvancedDto> GetRealEstateSecure(int realEstateId)
         {
             // TODO fix the multiple method route probelm.
-            var advertismentFromRepo = _advertismentRepository.Get(realEstateId);
+            var advertismentFromRepo = _advertisementRepository.Get(realEstateId);
             if (advertismentFromRepo == null)
             {
                 return NotFound();
             }
 
             AdvertismentMoreAdvancedDto adv = _mapper.Map<AdvertismentMoreAdvancedDto>(advertismentFromRepo);
-            adv.RealEstateType = _advertismentRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
+            adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
 
-            var comments = _advertismentRepository.GetComments(advertismentFromRepo.Id);
+            var comments = _advertisementRepository.GetComments(advertismentFromRepo.Id);
             foreach (Comment comment in comments)
             {
                 adv.Comments.Add(_mapper.Map(comment, new CommentDto()));
@@ -137,20 +137,20 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
-                //userName = "Johan"; // Remove, when user-identity model has been implemented!!
-                int userId = _advertismentRepository.GetUserIdFromUserName(userName);
+                userName = "Johan"; // For test. Remove!
+                int userId = _advertisementRepository.GetUserIdFromUserName(userName);
                 advertismentEntity.UserId = userId;
 
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
                 if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
                 advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
 
-                _advertismentRepository.Add(advertismentEntity);
-                _advertismentRepository.Save();
+                _advertisementRepository.Add(advertismentEntity);
+                _advertisementRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
                
-                return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
+                return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
             }
             catch(Exception ex)
             {
