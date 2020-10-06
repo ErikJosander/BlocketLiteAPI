@@ -15,6 +15,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// Advertisment Controller responsible for GET/POST for managing the advertisments
     /// </summary>
+    [EnableCors("AllowEverything")]
     [Produces("application/json")]
     [Route("api/RealEstates")]
     [ApiController]

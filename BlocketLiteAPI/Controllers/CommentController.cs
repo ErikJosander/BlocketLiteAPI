@@ -13,6 +13,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// Comment Controller responsible for GET/POST for managing the comments
     /// </summary>
+    [EnableCors("AllowEverything")]
     [Route("api/comments")]
     [ApiController]
     public class CommentController : ControllerBase
