@@ -1,6 +1,6 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
-using System.Collections.Generic;
 using BlocketLiteEFCoreDB.Repositories;
+using System.Collections.Generic;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -29,7 +29,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns><see cref="User.UserName"/></returns>
-        string GetUserNameFromUserId(int id);
+        string GetUserNameFromUserId(string id);
 
         /// <summary>
         /// If <paramref name="id"/> is equal to <see cref="Advertisement.Id"/> return <see cref="Advertisement.Comments"/>
@@ -44,7 +44,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="User.Id"/></returns>
-        int GetUserIdFromUserName(string userName);
+        string GetUserIdFromUserName(string userName);
 
         /// <summary>
         /// Returns the the number of <see cref="Advertisement"/> connected to a single <see cref="User"/>
@@ -52,6 +52,6 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Number of <see cref="Advertisement"/> <see cref="int"/></returns>
-        int GetNumberOfProperties(int userId);
+        int GetNumberOfProperties(string userId);
     }
 }

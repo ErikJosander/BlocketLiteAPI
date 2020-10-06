@@ -17,7 +17,7 @@ namespace BlocketLiteAPI.Profiles
             CreateMap<AdvertisementForCreationDto, Advertisement>()
                 .ForMember(
                     dest => dest.PropertyTypeId,
-                    opt => opt.MapFrom(src => src.Type)) ;
+                    opt => opt.MapFrom(src => src.Type));
 
             CreateMap<Advertisement, AdvertismentSimpleDto>();
 

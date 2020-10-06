@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Mime;
 
 namespace BlocketLiteAPI.Controllers
@@ -45,12 +44,17 @@ namespace BlocketLiteAPI.Controllers
             {
                 return BadRequest();
             }
+<<<<<<< HEAD
                 var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
             if(advertismentsFromRepo == null)
+=======
+            var advertismentsFromRepo = _advertismentRepository.GetAll(skip, take);
+            if (advertismentsFromRepo == null)
+>>>>>>> feature/azure
             {
                 return NotFound();
             }
-           
+
             // format the given result as Json.
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
             return Ok(result);
@@ -72,7 +76,7 @@ namespace BlocketLiteAPI.Controllers
             {
                 return NotFound();
             }
-  
+
             AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
             adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
             return Ok(adv);
@@ -122,11 +126,11 @@ namespace BlocketLiteAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
-            [FromBody]AdvertisementForCreationDto advertisement)
+            [FromBody] AdvertisementForCreationDto advertisement)
         {
             try
             {
-                if(advertisement == null)
+                if (advertisement == null)
                 {
                     return BadRequest("Advertisement object is null");
                 }
@@ -137,8 +141,12 @@ namespace BlocketLiteAPI.Controllers
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
 
                 string userName = User.Identity.Name;
+<<<<<<< HEAD
                 userName = "Johan"; // For test. Remove!
                 int userId = _advertisementRepository.GetUserIdFromUserName(userName);
+=======
+                string userId = _advertismentRepository.GetUserIdFromUserName(userName);
+>>>>>>> feature/azure
                 advertismentEntity.UserId = userId;
 
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
@@ -149,16 +157,21 @@ namespace BlocketLiteAPI.Controllers
                 _advertisementRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
+<<<<<<< HEAD
                
                 return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
+=======
+
+                return CreatedAtRoute("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
+>>>>>>> feature/azure
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO - create logging for errors
                 //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
                 return StatusCode(500, ex.Message);
             }
-           
+
         }
     }
 }

@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Diagnostics;
 using System.Linq;
+=======
+>>>>>>> feature/azure
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -31,7 +34,7 @@ namespace BlocketLiteAPI.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-       
+
         /// <summary>
         /// This Get methode returns all comments in the DB
         /// </summary>
@@ -39,7 +42,7 @@ namespace BlocketLiteAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CommentDto>> GetAllComments()
         {
-            var commentsFromRepo = _commentRepository.GetAll();           
+            var commentsFromRepo = _commentRepository.GetAll();
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
 
@@ -80,7 +83,11 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="take"></param>
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
         [Authorize]
+<<<<<<< HEAD
         [HttpGet("ByUser/{USERNAME}", Name = "GetCommentsByUserName")] 
+=======
+        [HttpGet("ByUser/{USERNAME}")]
+>>>>>>> feature/azure
         public ActionResult<IEnumerable<CommentDto>> GetComments(string USERNAME, int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)
@@ -113,6 +120,7 @@ namespace BlocketLiteAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<UserDto> CreateComment(int advertisementId,[FromBody]CommentForCreationDto comment)
         {
+<<<<<<< HEAD
             try
             {
                 //TODO check if the advertisement exists
@@ -132,6 +140,14 @@ namespace BlocketLiteAPI.Controllers
                 
                 commentEntity.UserId = userId;
                 commentEntity.UserName = userName;
+=======
+            var commetEntity = _mapper.Map<Comment>(comment);
+            commetEntity.CreatedOn = DateTime.Now;
+            string userName = User.Identity.Name;
+            string userId = _commentRepository.GetUserIdFromUserName(userName);
+            commetEntity.UserId = userId;
+            commetEntity.UserName = userName;
+>>>>>>> feature/azure
 
                 _commentRepository.Add(commentEntity);
                 _commentRepository.Save();

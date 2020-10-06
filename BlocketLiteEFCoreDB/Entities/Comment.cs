@@ -42,7 +42,7 @@ namespace BlocketLiteEFCoreDB.Entities
         /// </summary>
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// The username of the <see cref="User"/>

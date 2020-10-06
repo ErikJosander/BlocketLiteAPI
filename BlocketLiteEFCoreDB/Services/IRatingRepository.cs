@@ -1,6 +1,6 @@
-﻿using System;
-using BlocketLiteEFCoreDB.Entities;
+﻿using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
+using System;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -14,25 +14,25 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="User.UserName"/></returns>
-        string GetUserNameFromUserId(int userId);
+        string GetUserNameFromUserId(string userId);
 
         /// <summary>
         /// Sets the <see cref="Rating.RatingUserId"/> to null.
         /// </summary>
         /// <param name="userId"></param>
-        void DeleteRatingUserId(int userId);
+        void DeleteRatingUserId(string userId);
 
         /// <summary>
         /// Deletes the entire rating if an rated<see cref="User"/> is deleted.
         /// </summary>
         /// <param name="userId"></param>
-        void DeleteRatedUserRating(int userId);
+        void DeleteRatedUserRating(string userId);
 
         /// <summary>
         /// Returns an <see cref="double"/> avarage of all the ratings an <see cref="User"/> have.
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="Nullable"/> <see cref="double"/></returns>
-        double? GetAvarageRating(int userId);
+        double? GetAvarageRating(string userId);
     }
 }

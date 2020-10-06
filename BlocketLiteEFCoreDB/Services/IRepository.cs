@@ -18,6 +18,13 @@ namespace BlocketLiteEFCoreDB.Services
         TEntity Get(int id);
 
         /// <summary>
+        /// Gets the <see cref="TEntity"/> when a correct <paramref name="id"/> is supplied. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A <typeparamref name="TEntity"/>.</returns>
+        TEntity Get(string id);
+
+        /// <summary>
         /// Gets a <see cref="IEnumerable{T}"/> of the <see cref="TEntity"/>
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/></returns>

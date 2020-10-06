@@ -24,7 +24,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// Sets the <see cref="Rating.RatingUserId"/> to null.
         /// </summary>
         /// <param name="userId"></param>
-        public void DeleteRatingUserId(int userId)
+        public void DeleteRatingUserId(string userId)
         {
             var ratingCollection = _context.Ratings.Where(r => r.RatedUserId == userId || r.RatingUserId == userId);
             foreach (var rating in ratingCollection)
@@ -41,7 +41,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// Deletes the entire rating if an rated<see cref="User"/> is deleted.
         /// </summary>
         /// <param name="userId"></param>
-        public void DeleteRatedUserRating(int userId)
+        public void DeleteRatedUserRating(string userId)
         {
             var ratingCollection = _context.Ratings.Where(r => r.RatedUserId == userId);
             {
@@ -57,7 +57,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="User.UserName"/></returns>
-        public string GetUserNameFromUserId(int userId)
+        public string GetUserNameFromUserId(string userId)
         {
             var userName = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
             if (userName == null)
@@ -76,7 +76,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="Nullable"/> <see cref="double"/></returns>
-        public double? GetAvarageRating(int userId)
+        public double? GetAvarageRating(string userId)
         {
             var ratings = _context.Ratings.Where(r => r.RatedUserId == userId).ToList();
 
