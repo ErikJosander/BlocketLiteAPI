@@ -18,6 +18,11 @@ namespace BlocketLiteAPI.Models.Advertisment
         public string Title { get; set; }
 
         /// <summary>
+        /// Link to a picture
+        /// </summary>
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// The Selling-Price, can be <see cref="Nullable"/> (can't be <see cref="Nullable"/> if the <see cref="RentingPrice"/> is <see cref="Nullable"/>).
         /// </summary>
         public int? SellingPrice { get; set; }

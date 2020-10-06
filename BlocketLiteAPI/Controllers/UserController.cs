@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlocketLiteAPI.Models;
+using BlocketLiteAPI.Models.User;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -17,21 +18,21 @@ namespace BlocketLiteAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAdvertismentRepository _advertismentRepository;
+        private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IRatingRepository _ratingRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
 
 
         public UserController(IUserRepository userRepository,
-            IAdvertismentRepository advertismentRepository,
+            IAdvertisementRepository advertisementRepository,
             IRatingRepository ratingRepository,
             ICommentRepository commentRepository,
             IMapper mapper)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
 
-            _advertismentRepository = advertismentRepository ?? throw new ArgumentNullException(nameof(advertismentRepository));
+            _advertisementRepository = advertisementRepository ?? throw new ArgumentNullException(nameof(advertisementRepository));
 
             _ratingRepository = ratingRepository ?? throw new ArgumentNullException(nameof(ratingRepository));
 
@@ -56,10 +57,10 @@ namespace BlocketLiteAPI.Controllers
             {
                 var userDto = (_mapper.Map<UserDto>(user));
                 userDto.Comments = _commentRepository.GetNumberOfComments(user.Id);
-                userDto.RealEstates = _advertismentRepository.GetNumberOfProperties(user.Id);
+                userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(user.Id);
                 userDto.Rating = _ratingRepository.GetAvarageRating(user.Id);
                 userList.Add(userDto);
-            }        
+            }
             return Ok(userList);
         }
 
@@ -79,7 +80,7 @@ namespace BlocketLiteAPI.Controllers
             }
             var userDto = (_mapper.Map<UserDto>(userFromRepo));
             userDto.Comments = _commentRepository.GetNumberOfComments(userFromRepo.Id);
-            userDto.RealEstates = _advertismentRepository.GetNumberOfProperties(userFromRepo.Id);
+            userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(userFromRepo.Id);
             userDto.Rating = _ratingRepository.GetAvarageRating(userFromRepo.Id);
 
             return Ok(userDto);
@@ -92,7 +93,7 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>Returns <see cref="BadRequestResult"/> if the user tries to rate him/herself.
         /// <para></para>Else <see cref="OkResult"/></returns>
         [Authorize]
-        [HttpPost("Rate")]
+        [HttpPut("Rate")]
         public IActionResult RateUser(RatingForCreationDto rating)
         {
             var userToRate = _userRepository.Get(rating.UserId);
@@ -106,20 +107,39 @@ namespace BlocketLiteAPI.Controllers
 
             // maps the RatingUserId
             string userName = User.Identity.Name;
-            int? userId = _commentRepository.GetUserIdFromUserName(userName);
+            string userId = _commentRepository.GetUserIdFromUserName(userName);
             ratingEntity.RatingUserId = userId;
             if (userId == rating.UserId)
             {
-                // TODO add proper errormessage
-                return BadRequest();
+                return StatusCode(500, new Response { Status = "Error", Message = "Users can not rate themselves" });
             }
 
             // adds the new entity to the database and saves it
             _ratingRepository.Add(ratingEntity);
             _ratingRepository.Save();
 
-            // TODO not returning the correct path (can't find path when i posted)
             return Ok();
+        }
+
+
+        /// <summary>
+        /// This GET method returns an <see cref="OkResult"/> and an <see cref="UserIdDto"/> if the <see cref="User.UserName"/>
+        /// <br></br>is equal to the <paramref name="USERNAME"/>
+        /// </summary>
+        /// <param name="USERNAME"></param>
+        /// <returns><see cref="OkResult"/> and an <see cref="UserIdDto"/></returns>
+        [HttpGet("UserId/{USERNAME}")]
+        public IActionResult GetUserId(string USERNAME)
+        {
+            var userFromRepo = _userRepository.GetFromUserName(USERNAME);
+            if (userFromRepo == null)
+            {
+                return NotFound();
+            }
+            var userIdDto = new UserIdDto();
+            userIdDto.UserId = userFromRepo.Id;
+            userIdDto.UserName = userFromRepo.UserName;
+            return Ok(userIdDto);
         }
     }
 }

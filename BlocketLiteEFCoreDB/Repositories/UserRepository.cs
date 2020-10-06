@@ -27,7 +27,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="Advertisement"/></returns>
-        public IEnumerable<Advertisement> GetAdvertisements(int userId)
+        public IEnumerable<Advertisement> GetAdvertisements(string userId)
         {
             return _context.Advertisements.Where(ui => ui.UserId == userId);
         }

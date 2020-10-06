@@ -7,6 +7,7 @@ using System;
 
 namespace BlocketLiteAPI
 {
+    // test branch
     public class Program
     {
         public static void Main(string[] args)
@@ -39,7 +40,7 @@ namespace BlocketLiteAPI
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while migrating the database.");
                 }
-            }           
+            }
             host.Run();
         }
 

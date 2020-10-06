@@ -14,7 +14,11 @@ namespace BlocketLiteAPI.Profiles
             // Pass in source ad destination type (Obejct to Object)
             CreateMap<Comment, CommentDto>();
 
-            CreateMap<CommentForCreationDto, Comment>();
+            CreateMap<CommentForCreationDto, Comment>()
+                .ForMember(
+                dest => dest.AdvertisementId,
+                opt => opt.MapFrom(src => src.RealEstateId));
+
 
         }
     }

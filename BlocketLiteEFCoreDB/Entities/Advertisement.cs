@@ -27,12 +27,16 @@ namespace BlocketLiteEFCoreDB.Entities
         public string Title { get; set; }
 
         /// <summary>
+        /// A link to a picture
+        /// </summary>
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// A description of the advertisment
         /// </summary>
         [Required]
         [MinLength(10), MaxLength(1000)]
         public string Description { get; set; }
-
 
         /// <summary>
         /// The year-of-build. Needs to be 4-digits.
@@ -65,7 +69,7 @@ namespace BlocketLiteEFCoreDB.Entities
         /// </summary>
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// The <see cref="ForeignKeyAttribute"/> for a specific <see cref="PropertyType"/>

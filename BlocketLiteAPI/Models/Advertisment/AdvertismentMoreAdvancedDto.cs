@@ -19,6 +19,16 @@ namespace BlocketLiteAPI.Models.Advertisment
         public string Title { get; set; }
 
         /// <summary>
+        /// The Username of the user who has posted the 
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// A link to picture
+        /// </summary>
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// The description of the advertisment
         /// </summary>
         public string Description { get; set; }

@@ -1,7 +1,6 @@
 ﻿using BlocketLiteEFCoreDB.DbContexts;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Linq;
 namespace BlocketLiteEFCoreDB.Repositories
 {
     /// <summary>
-    /// Repository that implements <see cref="IAdvertismentRepository"/>
+    /// Repository that implements <see cref="IAdvertisementRepository"/>
     /// </summary>
-    public class AdvertismentRepository : Repository<Advertisement>, IAdvertismentRepository
+    public class AdvertismentRepository : Repository<Advertisement>, IAdvertisementRepository
     {
         private readonly BlocketLiteContext _context;
 
@@ -32,7 +31,6 @@ namespace BlocketLiteEFCoreDB.Repositories
         {
             var collection = _context.Advertisements as IQueryable<Advertisement>;
             if (take == 0) take = collection.Count();
-            if (take < 10) take = 10;
 
             if (skip < 0) skip = 0;
             if (skip > collection.Count()) skip = (collection.Count() - 1);
@@ -42,14 +40,13 @@ namespace BlocketLiteEFCoreDB.Repositories
             try
             {
                 collectionOutput = collection.ToList().GetRange(skip, take);
-
             }
             catch (ArgumentException)
             {
                 take = collection.Count() - skip;
                 collectionOutput = collection.ToList().GetRange(skip, take);
             }
-
+            collectionOutput = collectionOutput.OrderByDescending(a => a.CreatedOn).ToList();
             return collectionOutput;
         }
 
@@ -69,7 +66,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns><see cref="User.UserName"/></returns>
-        public string GetUserNameFromUserId(int userId)
+        public string GetUserNameFromUserId(string userId)
         {
             var user = _context.Users.Where(pt => pt.Id == userId).FirstOrDefault();
             return user.UserName;
@@ -91,7 +88,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="User.Id"/></returns>
-        public int GetUserIdFromUserName(string userName)
+        public string GetUserIdFromUserName(string userName)
         {
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
             return user.Id;
@@ -103,7 +100,7 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Number of <see cref="Advertisement"/> <see cref="int"/></returns>
-        public int GetNumberOfProperties(int userId)
+        public int GetNumberOfProperties(string userId)
         {
             var collection = _context.Advertisements.Where(c => c.UserId == userId).ToList();
             return collection.Count();

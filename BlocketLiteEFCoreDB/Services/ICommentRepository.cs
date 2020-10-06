@@ -1,6 +1,6 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
-using System.Collections.Generic;
 using BlocketLiteEFCoreDB.Repositories;
+using System.Collections.Generic;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -36,13 +36,13 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="Comment.UserId"/></returns>
-        int? GetUserIdFromUserName(string userName);
+        string GetUserIdFromUserName(string userName);
 
         /// <summary>
         /// Returns an <see cref="int"/> count of all the <see cref="Comment"/> that have t he same <see cref="Comment.UserId"/>
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="int"/></returns>
-        int GetNumberOfComments(int userId);
+        int GetNumberOfComments(string userId);
     }
 }

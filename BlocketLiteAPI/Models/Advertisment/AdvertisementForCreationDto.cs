@@ -58,6 +58,11 @@ namespace BlocketLiteAPI.Models
         public int Type { get; set; }
 
         /// <summary>
+        /// A link to a picture
+        /// </summary>
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// The address of the property.
         /// </summary>
         [Required(ErrorMessage = "You need to fill out the adress.")]

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -29,7 +28,17 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
         public TEntity Get(int id)
         {
-            return _contex.Set<TEntity>().Find(id); 
+            return _contex.Set<TEntity>().Find(id);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="TEntity"/> when a correct <paramref name="id"/> is supplied. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A <typeparamref name="TEntity"/>.</returns>
+        public TEntity Get(string id)
+        {
+            return _contex.Set<TEntity>().Find(id);
         }
 
         /// <summary>

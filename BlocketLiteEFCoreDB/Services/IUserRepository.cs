@@ -1,6 +1,6 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
-using System.Collections.Generic;
 using BlocketLiteEFCoreDB.Repositories;
+using System.Collections.Generic;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -22,7 +22,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="Advertisement"/></returns>
-        IEnumerable<Advertisement> GetAdvertisements(int userId);
+        IEnumerable<Advertisement> GetAdvertisements(string userId);
 
         /// <summary>
         /// If <see cref="DbContexts.BlocketLiteContext.Users"/> contains a <see cref="User"/> with <see cref="User.UserName"/> that is equal to <paramref name="userName"/>.

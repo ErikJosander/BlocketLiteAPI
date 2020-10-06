@@ -16,7 +16,7 @@ namespace BlocketLiteAPI.Models
         /// <summary>
         /// The <see cref="User.UserName"/> of the <see cref="User"/> who created the <see cref="Comment"/>
         /// </summary>
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// The <see cref="DateTime"/> the <see cref="Comment"/> was created on.
