@@ -12,8 +12,19 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"UserName\" : \"Erik\",\r\n    \"Password\" : \"123\"\r\n}",
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "UserName",
+							"value": "Filip",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "Bas98Pmar@",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -52,22 +63,22 @@
 					"urlencoded": [
 						{
 							"key": "UserName",
-							"value": "Johanna",
+							"value": "Filip",
 							"type": "text"
 						},
 						{
 							"key": "Email",
-							"value": "Erik@Gmail.com",
+							"value": "Filip@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "Password",
-							"value": "123",
+							"value": "Bas98Pmar@",
 							"type": "text"
 						},
 						{
 							"key": "ConfirmPassword",
-							"value": "123",
+							"value": "Bas98Pmar@",
 							"type": "text"
 						}
 					],
@@ -97,17 +108,28 @@
 		{
 			"name": "/api/RealEstates",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRmlsaXAiLCJqdGkiOiIwNzc3MDk2NS1lYzNhLTQzZGItYjkzYi1jZmU2OGQzYzU5ZDciLCJleHAiOjE2MDE5OTg0MDQsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE5NTUiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQyMDAifQ.d83HIFtTXyX2VOKO6ebNh0g7L4eHXkB9FyPN9x5e8yE",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik1hbGVuYSIsIm5iZiI6MTYwMTAyODAzMiwiZXhwIjoxNjE4MzA4MDMyLCJpYXQiOjE2MDEwMjgwMzJ9.ECT02AGblZPUnjK2JM7kPbVRscG--hl0SV0oosocwnQ",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Title\": \"Office Space in Middle OF VBG\",\r\n    \"Description\": \"You will love it. The view is great!\",\r\n    \"Address\": \"Prästgatan 4\",\r\n    \"Contact\": \"0888-888-888\",\r\n    \"ConstructionYear\": 2005,\r\n    \"SellingPrice\": 5000,\r\n    \"RentingPrice\": 500,\r\n    \"PropertyTypeId\": 2\r\n}",
+					"raw": "{\r\n    \"Title\": \"Office in Sthl\",\r\n    \"Description\": \"Cool office\",\r\n    \"ImageUrl\" : \"https://archello.s3.eu-central-1.amazonaws.com/images/2018/10/11/Contemporary-Modern-House-Design-6.1539270983.8601.jpg\",\r\n    \"Address\": \"Vasastan 44\",\r\n    \"Contact\": \"1982-888-893\",\r\n    \"ConstructionYear\": 1876,\r\n    \"SellingPrice\": null,\r\n    \"RentingPrice\": 59883,\r\n    \"Type\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -133,17 +155,28 @@
 		{
 			"name": "/api/comments",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2FsbGUiLCJqdGkiOiJiODYwOTg1Ni0wZTQwLTRlYTAtYjhjNi05YWNjOTgyODhhNWIiLCJleHAiOjE2MDE5ODc0MzYsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE5NTUiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQyMDAifQ.4FJshAntae9H2f4IG6CUki_mi4OGVZHChFxxhVSveLI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkpvaGFubmEiLCJuYmYiOjE2MDEzODAwMjQsImV4cCI6MTYxODY2MDAyNCwiaWF0IjoxNjAxMzgwMDI0fQ.tcCTh5CKBrQcqCO36IE7mJXx6coqiYtICriSGC9MyTU",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n    \"AdvertisementId\" : 7,\r\n    \"Content\" : \"Thias\"\r\n}",
+					"raw": "{ \r\n    \"RealEstateId\" : 1,\r\n    \"Content\" : \"his is the \"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -169,17 +202,27 @@
 		{
 			"name": "/users/rate",
 			"request": {
-				"method": "POST",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjE5ZDZjNGQ5LTY5OWMtNDUwNi04ZjJmLWNkNTAwZTkwYWI3ZSIsImV4cCI6MTYwMTk5MjI2MywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.nVhywvI2A8kvHv2jZWK-CLqXXO-stOAZAlJGZ0XloTc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVyaWsiLCJuYmYiOjE2MDEzODE3NjAsImV4cCI6MTYxODY2MTc2MCwiaWF0IjoxNjAxMzgxNzYwfQ.h68_Q50SVR5-Nt96HbaUNRN92BG_iNKx3xHUA4n458k",
+						"key": "",
+						"value": "",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"UserId\" : 2,\r\n    \"Value\" : 3\r\n}",
+					"raw": "{\r\n    \"UserId\" : \"5a4e7bad-4921-4fe7-85d2-f6f4e75fac1f\",\r\n    \"Value\" : 4\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -230,7 +273,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates",
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates?skip=2&take=1",
 					"protocol": "https",
 					"host": [
 						"blocketliteresourcegroup",
@@ -240,23 +283,44 @@
 					"path": [
 						"api",
 						"RealEstates"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "2"
+						},
+						{
+							"key": "take",
+							"value": "1"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/api/comments/ByUser/Malena",
+			"name": "/api/comments/ByUser/Erik",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjhjNDc2NWM1LTAzMWMtNDE4YS04NDUyLTI3Yjg1ODQzYjIwNiIsImV4cCI6MTYwMTk4NzM3NSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.C5PVRIK1N_tEtb3EfVL1qdoVg-Gc7wfq4TYzdwIkgoc",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik1hbGVuYSIsIm5iZiI6MTYwMTAyODAzMiwiZXhwIjoxNjE4MzA4MDMyLCJpYXQiOjE2MDEwMjgwMzJ9.ECT02AGblZPUnjK2JM7kPbVRscG--hl0SV0oosocwnQ",
-						"type": "text"
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
 					}
 				],
 				"body": {
@@ -269,7 +333,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/comments/ByUser/Malena",
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/comments/ByUser/Erik",
 					"protocol": "https",
 					"host": [
 						"blocketliteresourcegroup",
@@ -280,7 +344,7 @@
 						"api",
 						"comments",
 						"ByUser",
-						"Malena"
+						"Erik"
 					]
 				}
 			},
@@ -308,14 +372,14 @@
 			"response": []
 		},
 		{
-			"name": "/api/comments/7",
+			"name": "/api/comments/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkpvaGFubmEiLCJuYmYiOjE2MDEzODI3MTEsImV4cCI6MTYxODY2MjcxMSwiaWF0IjoxNjAxMzgyNzExfQ.oSaljuTUCxZJZuHvxDd23dUIVrSf4-QxqCUBGeAu1Vs",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6ImFkNzliNzI5LTcyYzItNGZmMy1iNmViLTA4MzRhNWZmOWQzNyIsImV4cCI6MTYwMTk4NzE0NywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.t2f3GCYs_8-8OUDLSv9EDEB8cEAoVNr09ZhJxq8iZVg",
 							"type": "string"
 						}
 					]
@@ -329,7 +393,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/comments/7",
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/comments",
 					"protocol": "https",
 					"host": [
 						"blocketliteresourcegroup",
@@ -338,37 +402,7 @@
 					],
 					"path": [
 						"api",
-						"comments",
-						"7"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/api/RealEstates/secure/1",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkpvaGFubmEiLCJuYmYiOjE2MDEzODI3MTEsImV4cCI6MTYxODY2MjcxMSwiaWF0IjoxNjAxMzgyNzExfQ.oSaljuTUCxZJZuHvxDd23dUIVrSf4-QxqCUBGeAu1Vs",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates/7/secure",
-					"protocol": "https",
-					"host": [
-						"blocketliteresourcegroup",
-						"azurewebsites",
-						"net"
-					],
-					"path": [
-						"api",
-						"RealEstates",
-						"7",
-						"secure"
+						"comments"
 					]
 				}
 			},
@@ -391,6 +425,51 @@
 						"api",
 						"RealEstates",
 						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users/Calle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/users/hanne",
+					"protocol": "https",
+					"host": [
+						"blocketliteresourcegroup",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users",
+						"hanne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/UserId/ERIK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/users/UserId/hanne",
+					"protocol": "https",
+					"host": [
+						"blocketliteresourcegroup",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users",
+						"UserId",
+						"hanne"
 					]
 				}
 			},

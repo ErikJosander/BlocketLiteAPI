@@ -11,8 +11,19 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"UserName\" : \"Calle\",\r\n    \"Password\" : \"123\"\r\n}",
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "UserName",
+							"value": "Calle",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "Bas98Pmar@",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,13 +31,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/token",
+					"raw": "http://localhost:5000/api/token",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
+						"api",
 						"token"
 					]
 				},
@@ -40,8 +52,29 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"UserName\" : \"Erok\",\r\n    \"Email\" : \"Asjdakjd@gmail.com\",\r\n    \"Password\" : \"123\",\r\n    \"ConfirmPassword\" : \"123\"\r\n}",
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "UserName",
+							"value": "Jamie",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "Jamie@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "Bas98Pmar@",
+							"type": "text"
+						},
+						{
+							"key": "ConfirmPassword",
+							"value": "Bas98Pmar@",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -67,17 +100,27 @@
 		{
 			"name": "http://localhost:5000/api/RealEstates",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNhbGxlIiwibmJmIjoxNjAxODg5OTQ2LCJleHAiOjE2MTkxNjk5NDYsImlhdCI6MTYwMTg4OTk0Nn0.-QML64EieBc5gPgu2wzPrQdm5U9xym4MgtmIAAwMRi",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlVzZXJOYW1lIiwibmJmIjoxNjAwNjk4MDM4LCJleHAiOjE2MTc5NzgwMzgsImlhdCI6MTYwMDY5ODAzOH0.bNH_uCVtV2EB9CQL5CuajgOR5nUIXdjSl1HVEAlrWKA",
+						"key": "",
+						"value": "",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Title\": \"Some very interesting office\",\r\n    \"Description\": \"You will love it. The view is great!\",\r\n    \"Address\": \"Mladost 1A, Telerik Academy building\",\r\n    \"Contact\": \"0888-888-888\",\r\n    \"ConstructionYear\": 2005,\r\n    \"SellingPrice\": 120000,\r\n    \"RentingPrice\": 500,\r\n    \"PropertyTypeId\": 2\r\n}",
+					"raw": "{\r\n    \"Title\": \"Some very interesting office\",\r\n    \"Description\": \"You will love it. The view is great!\",\r\n    \"Address\": \"Mladost 1A, Telerik Academy building\",\r\n    \"Contact\": \"0888-888-888\",\r\n    \"ConstructionYear\": 2005,\r\n    \"SellingPrice\": 120000,\r\n    \"RentingPrice\": 500,\r\n    \"Type\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,17 +145,27 @@
 		{
 			"name": "http://localhost:5000/api/comments",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSmFtaWUiLCJqdGkiOiJmNmIxN2E3ZS0xZjIyLTQ2OTEtYWQ5NC0yYTI0OWM4ZDVkZDMiLCJleHAiOjE2MDE5Mzg5NjIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE5NTUiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQyMDAifQ.eoM6vERUyhXabdbDQqKNlzqhwSYAy681WfWn9AtwQaI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkVyaWsiLCJuYmYiOjE2MDEzODEyNjIsImV4cCI6MTYxODY2MTI2MiwiaWF0IjoxNjAxMzgxMjYyfQ.Hcxul110IY0huRjxHYctbOSZi4Hy5FyBVzhP2howPM8",
+						"key": "",
+						"value": "",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"AdvertisementId\" : 7,\r\n    \"Content\" : \"Wow this is a comment created by postman\"\r\n}",
+					"raw": "{\r\n    \"AdvertisementId\" : 1,\r\n    \"Content\" : \"Wow this is a comment created by postman\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -120,7 +173,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/comments",
+					"raw": "http://localhost:5000/api/comments/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -128,7 +181,8 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"comments"
+						"comments",
+						"1"
 					]
 				}
 			},
@@ -137,11 +191,21 @@
 		{
 			"name": "http://localhost:51045/api/users/rate",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNhbGxlIiwibmJmIjoxNjAwNzYxOTMyLCJleHAiOjE2MTgwNDE5MzIsImlhdCI6MTYwMDc2MTkzMn0.4DUdiISvFYiHMIYjbNkqNVJMZ_dgbY9T4CJXBuqp4ZY",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNhbGxlIiwibmJmIjoxNjAwNzYxOTMyLCJleHAiOjE2MTgwNDE5MzIsImlhdCI6MTYwMDc2MTkzMn0.4DUdiISvFYiHMIYjbNkqNVJMZ_dgbY9T4CJXBuqp4ZY",
+						"value": "Bearer ",
 						"type": "text"
 					}
 				],
@@ -328,6 +392,26 @@
 						"comments",
 						"ByUser",
 						"Calle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
 					]
 				}
 			},

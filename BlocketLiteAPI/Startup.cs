@@ -35,10 +35,10 @@ namespace BlocketLiteAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Swagger
-            services.AddSwaggerGen(setupAction =>
+            
             services.AddSwaggerGen(options =>
             {
-                setupAction.SwaggerDoc("BlocketLiteAPISpecification",
+                options.SwaggerDoc("v1",
                     new Microsoft.OpenApi.Models.OpenApiInfo
                     {
                         Title = "BlocketLiteAPI",
@@ -52,8 +52,23 @@ namespace BlocketLiteAPI
                     });
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-                setupAction.IncludeXmlComments(filePath);
-            }));
+                options.IncludeXmlComments(filePath);
+            });
+
+
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("v1",
+            //        new Microsoft.OpenApi.Models.OpenApiInfo
+            //        {
+            //            Title = "Swagger Demo API",
+            //            Description = "Demo API for swagger",
+            //            Version = "v1"
+            //        });
+            //    var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //    var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+            //    options.IncludeXmlComments(filePath);
+            //});
 
             // XML
             services.AddControllers(setupAction =>
@@ -197,7 +212,7 @@ namespace BlocketLiteAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger BlocketLiteAPI");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "BlocketLiteAPI");
             });
         }
     }
