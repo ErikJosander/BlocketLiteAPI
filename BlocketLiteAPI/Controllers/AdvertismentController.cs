@@ -141,14 +141,11 @@ namespace BlocketLiteAPI.Controllers
                     return BadRequest("Invalid model object");
                 }
                 var advertismentEntity = _mapper.Map<Advertisement>(advertisement);
-
                 string userName = User.Identity.Name;
-
                 string userId = _advertisementRepository.GetUserIdFromUserName(userName);
 
 
                 advertismentEntity.UserId = userId;
-
                 if (advertismentEntity.RentingPrice != null) advertismentEntity.CanBeRented = true;
                 if (advertismentEntity.SellingPrice != null) advertismentEntity.CanBeSold = true;
                 advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
@@ -157,9 +154,7 @@ namespace BlocketLiteAPI.Controllers
                 _advertisementRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
-
                 return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
-
             }
             catch (Exception ex)
             {
