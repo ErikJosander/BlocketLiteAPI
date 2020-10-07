@@ -2,6 +2,7 @@
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
-   
+  
     [ApiController]
     public class AuthenticateController : ControllerBase
     {

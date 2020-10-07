@@ -13,6 +13,7 @@ namespace BlocketLiteAPI.Controllers
     /// <summary>
     /// User Controller responsible for GET/POST for managing the users
     /// </summary>
+
     [ApiController]
     [Route("api/Users")]
     public class UserController : ControllerBase
@@ -59,7 +60,9 @@ namespace BlocketLiteAPI.Controllers
                 userDto.Comments = _commentRepository.GetNumberOfComments(user.Id);
                 userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(user.Id);
                 userDto.Rating = _ratingRepository.GetAvarageRating(user.Id);
+                if (userDto.Rating == null) userDto.Rating = 0.0;
                 userList.Add(userDto);
+
             }
             return Ok(userList);
         }
@@ -82,7 +85,7 @@ namespace BlocketLiteAPI.Controllers
             userDto.Comments = _commentRepository.GetNumberOfComments(userFromRepo.Id);
             userDto.RealEstates = _advertisementRepository.GetNumberOfProperties(userFromRepo.Id);
             userDto.Rating = _ratingRepository.GetAvarageRating(userFromRepo.Id);
-
+            if (userDto.Rating == null) userDto.Rating = 0.0;
             return Ok(userDto);
         }
 

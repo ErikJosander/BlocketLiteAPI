@@ -27,16 +27,18 @@ namespace BlocketLiteAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+  
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen(setupAction =>
+            // Swagger
+            
             services.AddSwaggerGen(options =>
             {
-                setupAction.SwaggerDoc("BlocketLiteAPISpecification",
+                options.SwaggerDoc("v1",
                     new Microsoft.OpenApi.Models.OpenApiInfo
                     {
                         Title = "BlocketLiteAPI",
@@ -50,9 +52,25 @@ namespace BlocketLiteAPI
                     });
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-                setupAction.IncludeXmlComments(filePath);
-            }));
+                options.IncludeXmlComments(filePath);
+            });
 
+
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("v1",
+            //        new Microsoft.OpenApi.Models.OpenApiInfo
+            //        {
+            //            Title = "Swagger Demo API",
+            //            Description = "Demo API for swagger",
+            //            Version = "v1"
+            //        });
+            //    var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //    var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
+            //    options.IncludeXmlComments(filePath);
+            //});
+
+            // XML
             services.AddControllers(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -106,8 +124,16 @@ namespace BlocketLiteAPI
                     };
                 });
 
+            // Add cors
+            services.AddCors(options => options.AddPolicy("AllowEverything",
+                builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+
+            // Automapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // Interfaces and repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertismentRepository>();
@@ -144,6 +170,7 @@ namespace BlocketLiteAPI
                 };
             });
             
+            // Add Context
             services.AddDbContext<BlocketLiteContext>(options =>
             {
                 if (environment == "Development")
@@ -165,6 +192,8 @@ namespace BlocketLiteAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowEverything");
+
             app.UseRouting();
 
             app.UseHttpsRedirection();
@@ -172,6 +201,7 @@ namespace BlocketLiteAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -182,7 +212,7 @@ namespace BlocketLiteAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "BlocketLiteAPI");
             });
         }
     }
