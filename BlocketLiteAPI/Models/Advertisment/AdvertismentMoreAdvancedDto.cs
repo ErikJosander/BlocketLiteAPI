@@ -71,7 +71,7 @@ namespace BlocketLiteAPI.Models.Advertisment
         /// <summary>
         /// The correct adrress to the property.
         /// </summary>
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// The contact number to the seller.

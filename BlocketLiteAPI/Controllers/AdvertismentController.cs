@@ -64,56 +64,49 @@ namespace BlocketLiteAPI.Controllers
         /// <summary>
         /// This GET method takes a <paramref name="realestateId"/>" as input.
         /// <br></br> Searching for a specific <see cref="Advertisement"/> in the DB.
+        /// <br></br> If <see cref="User"/> is autorized return an <see cref="AdvertismentMoreAdvancedDto"/>
         /// </summary>
         /// <param name="realestateId"></param>
-        /// <returns>A <see cref="AdvertismentAdvancedDto"/></returns>
+        /// <returns>A <see cref="AdvertismentAdvancedDto"/> or a <see cref="AdvertismentMoreAdvancedDto"/></returns>
         [AllowAnonymous]
         [HttpGet("{realestateId}", Name = "GetRealEstateById")]
         public ActionResult<AdvertismentAdvancedDto> GetRealEstate(int realestateId)
         {
-            var advertismentFromRepo = _advertisementRepository.Get(realestateId);
-            if (advertismentFromRepo == null)
+            // Secure
+            if(User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                var advertismentFromRepo = _advertisementRepository.Get(realestateId);
+                if (advertismentFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                AdvertismentMoreAdvancedDto adv = _mapper.Map<AdvertismentMoreAdvancedDto>(advertismentFromRepo);
+                adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
+                adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
+                var comments = _advertisementRepository.GetComments(advertismentFromRepo.Id);
+                foreach (Comment comment in comments)
+                {
+                    adv.Comments.Add(_mapper.Map(comment, new CommentDto()));
+                }
+                return Ok(adv);
             }
+            // Public
+            else
+            {
+                var advertismentFromRepo = _advertisementRepository.Get(realestateId);
+                if (advertismentFromRepo == null)
+                {
+                    return NotFound();
+                }
 
-            AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
-            adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
-            adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
+                AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
+                adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
+                adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
 
-            return Ok(adv);
+                return Ok(adv);
+            }
         }
-
-
-        /// <summary>
-        /// This GET method take a <paramref name="realEstateId"/> as input. 
-        /// If found it map a <see cref="Advertisement"/> and the connected <see cref="Comment"/> 
-        /// <br></br> to an <see cref="AdvertismentMoreAdvancedDto"/>
-        /// </summary>
-        /// <param name="realEstateId"></param>
-        /// <returns>An <see cref="AdvertismentMoreAdvancedDto"/></returns>
-        [Authorize]
-        [HttpGet("{realEstateId}/secure")] //Remove /secure - when user identity is implemented
-        public ActionResult<AdvertismentMoreAdvancedDto> GetRealEstateSecure(int realEstateId)
-        {
-            // TODO fix the multiple method route probelm.
-            var advertismentFromRepo = _advertisementRepository.Get(realEstateId);
-            if (advertismentFromRepo == null)
-            {
-                return NotFound();
-            }
-
-            AdvertismentMoreAdvancedDto adv = _mapper.Map<AdvertismentMoreAdvancedDto>(advertismentFromRepo);
-            adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
-            adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
-            var comments = _advertisementRepository.GetComments(advertismentFromRepo.Id);
-            foreach (Comment comment in comments)
-            {
-                adv.Comments.Add(_mapper.Map(comment, new CommentDto()));
-            }
-            return Ok(adv);
-        }
-
 
         /// <summary>
         /// This POST method take an <see cref="AdvertisementForCreationDto"/> as input.
