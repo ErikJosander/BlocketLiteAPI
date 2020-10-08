@@ -48,15 +48,14 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>An <see cref="IEnumerable{T}"/> as a list of <see cref="AdvertismentSimpleDto"/></returns>
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult<IEnumerable<AdvertismentSimpleDto>> GetAdvertisments(int skip = 0, int take = 0)
+        public async Task<ActionResult<IEnumerable<AdvertismentSimpleDto>>> GetAdvertismentsAsync(int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)
             {
                 return BadRequest();
             }
-            var advertismentsFromRepo = _advertisementRepository.GetAll(skip, take);
+            var advertismentsFromRepo = await _advertisementRepository.GetAllAsync(skip, take);
             if (advertismentsFromRepo == null)
-
             {
                 return NotFound();
             }

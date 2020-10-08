@@ -1,9 +1,11 @@
 ﻿using BlocketLiteEFCoreDB.DbContexts;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Repositories
 {
@@ -27,14 +29,14 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Advertisement"/>.</returns>
-        public IEnumerable<Advertisement> GetAll(int skip, int take)
+        public async Task<IEnumerable<Advertisement>> GetAllAsync(int skip, int take)
         {
-            var collection = _context.Advertisements as IQueryable<Advertisement>;
-            if (take == 0) take = collection.Count();
+            var collection =  await _context.Advertisements.ToListAsync();
 
+            if (take == 0) take = 10;
+            if (take > 100) take = 100;
             if (skip < 0) skip = 0;
             if (skip > collection.Count()) skip = (collection.Count() - 1);
-
 
             List<Advertisement> collectionOutput = new List<Advertisement>();
             try
@@ -47,6 +49,7 @@ namespace BlocketLiteEFCoreDB.Repositories
                 collectionOutput = collection.ToList().GetRange(skip, take);
             }
             collectionOutput = collectionOutput.OrderByDescending(a => a.CreatedOn).ToList();
+
             return collectionOutput;
         }
 
