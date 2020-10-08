@@ -1,6 +1,7 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -14,7 +15,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="User"/></returns>
-        IEnumerable<User> GetAll(string userName);
+         Task<IEnumerable<User>> GetAllAsync(string userName);
 
         /// <summary>
         /// Return all the <see cref="IEnumerable{T}"/> of <see cref="Advertisement"/> in the <see cref="DbContexts.BlocketLiteContext.Advertisements"/>

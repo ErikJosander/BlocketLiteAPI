@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -37,9 +38,9 @@ namespace BlocketLiteAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<CommentDto>> GetAllComments()
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetAllCommentsAsync()
         {
-            var commentsFromRepo = _commentRepository.GetAll();
+            var commentsFromRepo = await _commentRepository.GetAllAsync();
             return Ok(_mapper.Map<IEnumerable<CommentDto>>(commentsFromRepo));
         }
 
@@ -54,13 +55,13 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>an <see cref="OkResult"/> list of <see cref="CommentDto"/> mapped from the DB</returns>
         [Authorize]
         [HttpGet("{realEstateId}", Name = "GetCommentsForARealEstate")]
-        public ActionResult<IEnumerable<CommentDto>> GetComments(int realEstateId, int skip = 0, int take = 10)
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetComments(int realEstateId, int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)
             {
                 return BadRequest();
             }
-            var commentsFromRepo = _commentRepository.GetAllFromRealEstate(realEstateId, skip, take);
+            var commentsFromRepo = await _commentRepository.GetAllFromRealEstateAsync(realEstateId, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
             // Is sorted in repository, no need here/MJ
@@ -82,13 +83,13 @@ namespace BlocketLiteAPI.Controllers
         [Authorize]
 
         [HttpGet("ByUser/{USERNAME}")]
-        public ActionResult<IEnumerable<CommentDto>> GetComments(string USERNAME, int skip = 0, int take = 10)
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsAsync(string USERNAME, int skip = 0, int take = 10)
         {
             if (skip < 0 || take < 0)
             {
                 return BadRequest();
             }
-            var commentsFromRepo = _commentRepository.GetAllFromUser(USERNAME, skip, take);
+            var commentsFromRepo = await _commentRepository.GetAllFromUserAsync(USERNAME, skip, take);
             if (commentsFromRepo == null) return NotFound();
             if (commentsFromRepo.Count == 0) return NotFound();
 
@@ -135,7 +136,7 @@ namespace BlocketLiteAPI.Controllers
 
 
                 _commentRepository.Add(commetEntity);
-                _commentRepository.Save();
+                _commentRepository.SaveAsync();
 
                 // TODO not returning the correct path (can't find path when i posted)
                 var commentToReturn = _mapper.Map<CommentDto>(commetEntity);
@@ -153,9 +154,9 @@ namespace BlocketLiteAPI.Controllers
         // Only for routing ===> TESTING
         [Authorize]
         [HttpGet("GetComment/{commentId}", Name = "GetCommentById")]
-        public ActionResult<IEnumerable<CommentDto>> GetCommentsAction(int commentId)
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsActionAsync(int commentId)
         {
-            var commentsFromRepo = _commentRepository.Get(commentId);
+            var commentsFromRepo = await _commentRepository.GetAsync(commentId);
             if (commentsFromRepo == null) return NotFound();
 
             // format the given result as Json.

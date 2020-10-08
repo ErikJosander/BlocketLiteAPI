@@ -17,7 +17,7 @@ namespace BlocketLiteEFCoreDB.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// A string of <see cref="PropertyType"/> - (1:apartment, 2:house, 3:office, 4:warehouse)
+        /// A string of <see cref="PropertyType"/> - (1:lägehet, 2:hus, 3:kontor, 4:lagerlokal)
         /// </summary>
         [Required]
         [MaxLength(10)]

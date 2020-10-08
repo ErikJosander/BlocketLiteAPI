@@ -129,7 +129,13 @@ namespace BlocketLiteAPI
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             // For Identity  
-            services.AddIdentity<User, IdentityRole<string>>()
+            services.AddIdentity<User, IdentityRole<string>>(o => {
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 2;
+            })
                 .AddEntityFrameworkStores<BlocketLiteContext>()
                 .AddDefaultTokenProviders();
 

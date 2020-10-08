@@ -10,13 +10,15 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net.Mime;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
     /// <summary>
     /// Advertisment Controller responsible for GET/POST for managing the advertisments
     /// </summary>
-    
+
     [Produces("application/json")]
     [Route("api/RealEstates")]
     [ApiController]
@@ -25,14 +27,17 @@ namespace BlocketLiteAPI.Controllers
         private readonly IAdvertisementRepository _advertisementRepository;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly ICommentRepository _commentRepository;
 
         public AdvertismentController(IAdvertisementRepository advertisementRepository,
             IMapper mapper,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICommentRepository commentRepository)
         {
             _advertisementRepository = advertisementRepository ?? throw new ArgumentNullException(nameof(advertisementRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _userRepository = userRepository;
+            _commentRepository = commentRepository;
         }
 
         /// <summary>
@@ -54,8 +59,8 @@ namespace BlocketLiteAPI.Controllers
 
             {
                 return NotFound();
-            }       
-               
+            }
+
             var result = _mapper.Map<IEnumerable<AdvertismentSimpleDto>>(advertismentsFromRepo);
             return Ok(result);
         }
@@ -70,12 +75,12 @@ namespace BlocketLiteAPI.Controllers
         /// <returns>A <see cref="AdvertismentAdvancedDto"/> or a <see cref="AdvertismentMoreAdvancedDto"/></returns>
         [AllowAnonymous]
         [HttpGet("{realestateId}", Name = "GetRealEstateById")]
-        public ActionResult<AdvertismentAdvancedDto> GetRealEstate(int realestateId)
+        public async Task<ActionResult<AdvertismentAdvancedDto>> GetRealEstateAsync(int realestateId)
         {
             // Secure
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
-                var advertismentFromRepo = _advertisementRepository.Get(realestateId);
+                var advertismentFromRepo = await _advertisementRepository.GetAsync(realestateId);
                 if (advertismentFromRepo == null)
                 {
                     return NotFound();
@@ -94,7 +99,7 @@ namespace BlocketLiteAPI.Controllers
             // Public
             else
             {
-                var advertismentFromRepo = _advertisementRepository.Get(realestateId);
+                var advertismentFromRepo = await _advertisementRepository.GetAsync(realestateId);
                 if (advertismentFromRepo == null)
                 {
                     return NotFound();
@@ -103,7 +108,6 @@ namespace BlocketLiteAPI.Controllers
                 AdvertismentAdvancedDto adv = _mapper.Map<AdvertismentAdvancedDto>(advertismentFromRepo);
                 adv.RealEstateType = _advertisementRepository.GetPropertyNameFromPropertyId(advertismentFromRepo.PropertyTypeId);
                 adv.UserName = _advertisementRepository.GetUserNameFromUserId(advertismentFromRepo.UserId);
-
                 return Ok(adv);
             }
         }
@@ -144,7 +148,8 @@ namespace BlocketLiteAPI.Controllers
                 advertismentEntity.CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC();
 
                 _advertisementRepository.Add(advertismentEntity);
-                _advertisementRepository.Save();
+                // TODO might be problem
+                _advertisementRepository.SaveAsync();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
                 return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);
@@ -155,7 +160,36 @@ namespace BlocketLiteAPI.Controllers
                 //_logger.LogError($"Something went wrong inside the CreateRealEstate action");
                 return StatusCode(500, ex.Message);
             }
+        }
 
+        [Authorize]
+        [HttpDelete("{realestateId}")]
+        public async Task<ActionResult> DeleteAdvertismentAsync(int realestateId)
+        {        
+            var adv = await _advertisementRepository.GetAsync(realestateId);
+            if(adv == null)
+            {
+                return BadRequest();
+            }
+            string userName = User.Identity.Name;
+            var user = _userRepository.GetFromUserName(userName);
+            if(adv.UserId != user.Id)
+            {
+                // TODO error message
+                return BadRequest();
+            }
+            var comments = await _commentRepository.GetAllFromRealEstateAsync(realestateId);
+            foreach (var c in comments)
+            {
+                _commentRepository.Remove(c);             
+            }
+            _commentRepository.SaveAsync();
+
+            _advertisementRepository.Remove(adv);
+            _advertisementRepository.SaveAsync();
+
+            // TODO maybe return removed advertisment?
+            return Ok();
         }
     }
 }
