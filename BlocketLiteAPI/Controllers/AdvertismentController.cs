@@ -124,7 +124,7 @@ namespace BlocketLiteAPI.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<AdvertismentSimpleDto> CreateRealEstate(
+        public  ActionResult<AdvertismentSimpleDto> CreateRealEstate(
             [FromBody] AdvertisementForCreationDto advertisement)
         {
             try
@@ -149,7 +149,7 @@ namespace BlocketLiteAPI.Controllers
 
                 _advertisementRepository.Add(advertismentEntity);
                 // TODO might be problem
-                _advertisementRepository.SaveAsync();
+                _advertisementRepository.Save();
 
                 var advertismentToReturn = _mapper.Map<AdvertismentSimpleDto>(advertismentEntity);
                 return CreatedAtAction("GetRealEstateById", new { realestateId = advertismentToReturn.Id }, advertismentToReturn);

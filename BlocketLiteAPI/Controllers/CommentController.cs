@@ -136,7 +136,7 @@ namespace BlocketLiteAPI.Controllers
 
 
                 _commentRepository.Add(commetEntity);
-                _commentRepository.SaveAsync();
+                _commentRepository.Save();
 
                 // TODO not returning the correct path (can't find path when i posted)
                 var commentToReturn = _mapper.Map<CommentDto>(commetEntity);

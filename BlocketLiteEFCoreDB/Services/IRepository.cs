@@ -64,5 +64,9 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         void SaveAsync();
 
+        /// <summary>
+        /// Save changes
+        /// </summary>
+        void Save();
     }
 }

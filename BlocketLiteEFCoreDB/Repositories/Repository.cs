@@ -103,5 +103,13 @@ namespace BlocketLiteEFCoreDB.Repositories
         {
            await _contex.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Saves changes made in the <see cref="DbContexts"/> to the DB.
+        /// </summary>
+        public void Save()
+        {
+             _contex.SaveChanges();
+        }
     }
 }

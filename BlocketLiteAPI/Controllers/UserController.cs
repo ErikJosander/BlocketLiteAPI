@@ -120,7 +120,7 @@ namespace BlocketLiteAPI.Controllers
 
             // adds the new entity to the database and saves it
             _ratingRepository.Add(ratingEntity);
-            _ratingRepository.SaveAsync();
+            _ratingRepository.Save();
 
             return Ok();
         }
