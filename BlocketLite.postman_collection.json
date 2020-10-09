@@ -15,7 +15,7 @@
 					"urlencoded": [
 						{
 							"key": "UserName",
-							"value": "Calle",
+							"value": "Erik",
 							"type": "text"
 						},
 						{
@@ -31,14 +31,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/token",
+					"raw": "http://localhost:5000/token",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5000",
 					"path": [
-						"api",
 						"token"
 					]
 				},
@@ -150,7 +149,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSmFtaWUiLCJqdGkiOiJmNmIxN2E3ZS0xZjIyLTQ2OTEtYWQ5NC0yYTI0OWM4ZDVkZDMiLCJleHAiOjE2MDE5Mzg5NjIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE5NTUiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQyMDAifQ.eoM6vERUyhXabdbDQqKNlzqhwSYAy681WfWn9AtwQaI",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjAxOWQ3NGU1LWRmODktNDIwZS04YzUxLTc3MDE3ZGNkNzNlNiIsImV4cCI6MTYwMjE2MTIwNCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.BgQhux_l-H5LQAGhBqREi_F9oxG1ff6MjT-8IdWqQ6M",
 							"type": "string"
 						}
 					]
@@ -165,7 +164,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"AdvertisementId\" : 1,\r\n    \"Content\" : \"Wow this is a comment created by postman\"\r\n}",
+					"raw": "{\r\n    \"RealEstateId\" : 1,\r\n    \"Content\" : \"Wow this is a comment created by postman\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -173,7 +172,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/comments/1",
+					"raw": "http://localhost:5000/api/comments",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -181,8 +180,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"comments",
-						"1"
+						"comments"
 					]
 				}
 			},
@@ -211,7 +209,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"UserId\" : 2,\r\n    \"Value\" : 3\r\n}",
+					"raw": "{\r\n    \"UserId\" : \"e2435133-31da-4c48-a812-e20fe84c009b\",\r\n    \"Value\" : 3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,6 +410,57 @@
 					"path": [
 						"api",
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/RealEstates/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjcwNDM5ZjQ4LWJjMWMtNDk1NC05Nzk2LTcxOGRmNmJiNTc0OCIsImV4cCI6MTYwMjE1NTg3MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.4USkosRdalPbStnSFTA07SmfchyEClmdb2GnqvKbVPs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/RealEstates/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"RealEstates",
+						"1"
 					]
 				}
 			},
