@@ -42,7 +42,7 @@ namespace BlocketLiteEFCoreDB.Extensions
                     PhoneNumberConfirmed = false
                 };
                 PasswordHasher<User> ph1 = new PasswordHasher<User>();
-                user.PasswordHash = ph1.HashPassword(user, "Bas98Pmar@");
+                user.PasswordHash = ph1.HashPassword(user, "123");
                 users.Add(user);
                 modelBuilder.Entity<User>().HasData(user);
 
@@ -61,7 +61,7 @@ namespace BlocketLiteEFCoreDB.Extensions
                     PhoneNumber = "123456789",
                     PhoneNumberConfirmed = false
                 };
-                user.PasswordHash = ph1.HashPassword(user, "Bas98Pmar@");
+                user.PasswordHash = ph1.HashPassword(user, "123");
                 users.Add(user);
                 modelBuilder.Entity<User>().HasData(user);
 
@@ -83,7 +83,23 @@ namespace BlocketLiteEFCoreDB.Extensions
                         CanBeRented = true,
                         Contact = "10708 001122",
                         Address = "Varberg"
-                    });
+                    },
+                     new Advertisement()
+                     {
+                         Id = 2,
+                         Title = "Seaside house",
+                         Description = "Cool house with seaview for sale",
+                         ConstructionYear = 1679,
+                         UserId = users.Where(u => u.UserName == "Erik").FirstOrDefault().Id,
+                         CreatedOn = Helpers.GetCurrentDateUTC.GetDateTimeUTC(),
+                         SellingPrice = 5500000,
+                         RentingPrice = null,
+                         PropertyTypeId = 2,
+                         CanBeSold = true,
+                         CanBeRented = false,
+                         Contact = "00-987-298",
+                         Address = "Laholm"
+                     });
 
 
                 modelBuilder.Entity<Comment>().HasData(
@@ -91,10 +107,19 @@ namespace BlocketLiteEFCoreDB.Extensions
                     {
                         Id = 1,
                         AdvertisementId = 1,
-                        Content = "First comment by Calle",
+                        Content = "Wow, this is amazing",
                         CreatedOn = DateTime.Now,
                         UserId = users.Where(u => u.UserName == "Calle").FirstOrDefault().Id,
                         UserName = "Calle"
+                    },
+                    new Comment
+                    {
+                        Id = 2,
+                        AdvertisementId = 1,
+                        Content = "how many rooms?",
+                        CreatedOn = DateTime.Now,
+                        UserId = users.Where(u => u.UserName == "Erik").FirstOrDefault().Id,
+                        UserName = "Erik"
                     });
 
 

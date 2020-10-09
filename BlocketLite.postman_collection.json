@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:5000/token",
+			"name": "token",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -46,7 +46,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/account/register",
+			"name": "account/register",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -97,7 +97,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/RealEstates",
+			"name": "RealEstates",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -142,7 +142,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/comments",
+			"name": "comments",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -187,7 +187,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:51045/api/users/rate",
+			"name": "users/rate",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -233,7 +233,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/RealEstates",
+			"name": "RealEstates",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -271,8 +271,18 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/RealEstates/1",
+			"name": "RealEstates/1",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjIzNDE4MjA4LTMxMDItNDc4OS1iMWIwLTY3ZDZiMGQ2NTg4ZSIsImV4cCI6MTYwMjI1MzQyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.8taG4TYovBiFea14jk77e0RzZ80W-OCgVO4wRS78zfI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -292,35 +302,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/RealEstates/1/secure",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNhbGxlIiwibmJmIjoxNjAwNzc4MjA4LCJleHAiOjE2MTgwNTgyMDgsImlhdCI6MTYwMDc3ODIwOH0.KCY91TyHoOrnSlmdr1ssHu0h4i8CLNmvgjmoc8N-y_o"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:5000/api/RealEstates/1/secure",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"RealEstates",
-						"1",
-						"secure"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:5000/api/comments/1",
+			"name": "comments/1",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -347,7 +329,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/users/calle",
+			"name": "users/calle",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -368,8 +350,18 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/comments/ByUser/Calle",
+			"name": "comments/ByUser/Calle",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjIzNDE4MjA4LTMxMDItNDc4OS1iMWIwLTY3ZDZiMGQ2NTg4ZSIsImV4cCI6MTYwMjI1MzQyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.8taG4TYovBiFea14jk77e0RzZ80W-OCgVO4wRS78zfI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -396,7 +388,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/users",
+			"name": "users",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -416,7 +408,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:5000/api/comments",
+			"name": "comments",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -436,7 +428,7 @@
 			"response": []
 		},
 		{
-			"name": "/api/RealEstates/1",
+			"name": "RealEstates/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
