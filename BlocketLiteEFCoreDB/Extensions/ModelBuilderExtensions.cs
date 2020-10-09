@@ -31,7 +31,7 @@ namespace BlocketLiteEFCoreDB.Extensions
                 User user = new User
                 {
                     UserName = "Erik",
-                    Password = "Bas98Pmar@",
+                    Password = "123",
                     LockoutEnabled = true,
                     Email = "Erik@test.com",
                     NormalizedEmail = "Erik@test.com".ToUpper(),
@@ -53,7 +53,7 @@ namespace BlocketLiteEFCoreDB.Extensions
                     UserName = "Calle",
                     LockoutEnabled = true,
                     Email = "Calle@test.com",
-                    Password = "Bas98Pmar@",
+                    Password = "123",
                     NormalizedEmail = "Calle@test.com".ToUpper(),
                     NormalizedUserName = "Calle".ToUpper(),
                     TwoFactorEnabled = false,
