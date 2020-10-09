@@ -116,26 +116,26 @@ namespace BlocketLiteEFCoreDB.Extensions
         public static void CreatePropertyTypeData(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PropertyType>().HasData(
-     new PropertyType()
-     {
-         Id = 1,
-         Type = "lägenhet"
-     },
-     new PropertyType()
-     {
-         Id = 2,
-         Type = "hus"
-     },
-     new PropertyType()
-     {
-         Id = 3,
-         Type = "kontor"
-     },
-     new PropertyType()
-     {
-         Id = 4,
-         Type = "lagerlokal"
-     });
+                new PropertyType()
+                {
+                    Id = 1,
+                    Type = "lägenhet"
+                },
+                new PropertyType()
+                {
+                    Id = 2,
+                    Type = "hus"
+                },
+                new PropertyType()
+                {
+                    Id = 3,
+                    Type = "kontor"
+                },
+                new PropertyType()
+                {
+                    Id = 4,
+                    Type = "lagerlokal"
+                });
         }
     }
 }
