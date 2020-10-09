@@ -27,7 +27,6 @@ namespace BlocketLiteAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-  
         }
 
         public IConfiguration Configuration { get; }
@@ -191,7 +190,6 @@ namespace BlocketLiteAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {
