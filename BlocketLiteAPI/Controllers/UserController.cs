@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlocketLiteAPI.Controllers
 {
@@ -50,9 +51,9 @@ namespace BlocketLiteAPI.Controllers
         /// <param name="userName"></param>
         /// <returns><see cref="OkResult"/> and a <see cref="List{T}"/> of <see cref="UserDto"/></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<UserDto>> GetUsers(string userName)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersAsync(string userName)
         {
-            var usersFromRepo = _userRepository.GetAll(userName);
+            var usersFromRepo = await _userRepository.GetAllAsync(userName);
             List<UserDto> userList = new List<UserDto>();
             foreach (User user in usersFromRepo)
             {
@@ -97,9 +98,9 @@ namespace BlocketLiteAPI.Controllers
         /// <para></para>Else <see cref="OkResult"/></returns>
         [Authorize]
         [HttpPut("Rate")]
-        public IActionResult RateUser(RatingForCreationDto rating)
+        public async Task<IActionResult> RateUserAsync(RatingForCreationDto rating)
         {
-            var userToRate = _userRepository.Get(rating.UserId);
+            var userToRate = await _userRepository.GetAsync(rating.UserId);
             if (userToRate == null)
             {
                 return NotFound();

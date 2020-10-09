@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -15,20 +16,20 @@ namespace BlocketLiteEFCoreDB.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
-        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
 
         /// <summary>
         /// Gets the <see cref="TEntity"/> when a correct <paramref name="id"/> is supplied. 
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
-        TEntity Get(string id);
+        Task<TEntity> GetAsync(string id);
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}"/> of the <see cref="TEntity"/>
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/></returns>
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         // Do we need this?
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
@@ -61,7 +62,11 @@ namespace BlocketLiteEFCoreDB.Services
         /// <summary>
         /// Saves changes made in the <see cref="DbContexts"/> to the DB.
         /// </summary>
-        void Save();
+        void SaveAsync();
 
+        /// <summary>
+        /// Save changes
+        /// </summary>
+        void Save();
     }
 }

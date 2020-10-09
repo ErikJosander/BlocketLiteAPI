@@ -34,8 +34,7 @@ namespace BlocketLiteAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Swagger
-            
+            // Swagger           
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1",
@@ -54,21 +53,6 @@ namespace BlocketLiteAPI
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
             });
-
-
-            //services.AddSwaggerGen(options =>
-            //{
-            //    options.SwaggerDoc("v1",
-            //        new Microsoft.OpenApi.Models.OpenApiInfo
-            //        {
-            //            Title = "Swagger Demo API",
-            //            Description = "Demo API for swagger",
-            //            Version = "v1"
-            //        });
-            //    var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            //    var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
-            //    options.IncludeXmlComments(filePath);
-            //});
 
             // XML
             services.AddControllers(setupAction =>
@@ -145,7 +129,13 @@ namespace BlocketLiteAPI
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             // For Identity  
-            services.AddIdentity<User, IdentityRole<string>>()
+            services.AddIdentity<User, IdentityRole<string>>(o => {
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 2;
+            })
                 .AddEntityFrameworkStores<BlocketLiteContext>()
                 .AddDefaultTokenProviders();
 

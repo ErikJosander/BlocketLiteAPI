@@ -1,6 +1,7 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -18,7 +19,15 @@ namespace BlocketLiteEFCoreDB.Services
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>An <see cref="ICollection{T}"/> of <see cref="Comment"/></returns>
-        ICollection<Comment> GetAllFromRealEstate(int realEstateId, int skip, int take);
+        Task<ICollection<Comment>> GetAllFromRealEstateAsync(int realEstateId, int skip, int take);
+
+        /// <summary>
+        /// If <see cref="DbContexts.BlocketLiteContext.Advertisements"/><see cref="Advertisement.Id"/> is equal to <paramref name="realEstateId"/>"/>
+        /// <br></br> returns <see cref="ICollection{T}"/> of <see cref="Comment"/>.
+        /// </summary>
+        /// <param name="realEstateId"></param>    
+        /// <returns>An <see cref="ICollection{T}"/> of <see cref="Comment"/></returns>
+        Task<ICollection<Comment>> GetAllFromRealEstateAsync(int realEstateId);
 
         /// <summary>
         /// Return an <see cref="ICollection{T}"/> of all <see cref="Comment"/> who are posted by a specific <see cref="User"/>
@@ -28,7 +37,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns><see cref="ICollection{T} <see cref="Comment"/>"/></returns>
-        ICollection<Comment> GetAllFromUser(string userName, int skip, int take);
+        Task<ICollection<Comment>> GetAllFromUserAsync(string userName, int skip, int take);
 
         /// <summary>
         /// If <see cref=DbContexts.BlocketLiteContext.Comments"/> contains an <see cref="Comment"/> with <see cref="Comment.UserName"/> 

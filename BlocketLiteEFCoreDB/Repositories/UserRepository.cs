@@ -4,6 +4,7 @@ using BlocketLiteEFCoreDB.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Repositories
 {
@@ -37,11 +38,11 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="User"/></returns>
-        public IEnumerable<User> GetAll(string userName)
+        public async Task<IEnumerable<User>> GetAllAsync(string userName)
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
-                return GetAll();
+                return  await GetAllAsync();
             }
 
             var collection = _context.Users as IQueryable<User>;

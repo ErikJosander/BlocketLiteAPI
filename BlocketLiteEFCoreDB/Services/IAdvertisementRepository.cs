@@ -1,6 +1,7 @@
 ﻿using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Services
 {
@@ -15,7 +16,7 @@ namespace BlocketLiteEFCoreDB.Services
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Advertisement"/>.</returns>
-        IEnumerable<Advertisement> GetAll(int skip, int take);
+        Task<IEnumerable<Advertisement>> GetAllAsync(int skip, int take);
 
         /// <summary>
         /// If <see cref="PropertyType.Id"/> is equal to <paramref name="id"/> return <see cref="PropertyType.Type"/>

@@ -1,9 +1,11 @@
 ﻿using BlocketLiteEFCoreDB.DbContexts;
 using BlocketLiteEFCoreDB.Entities;
 using BlocketLiteEFCoreDB.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Repositories
 {
@@ -29,9 +31,9 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns>An <see cref="ICollection{T}"/> of <see cref="Comment"/></returns>
-        public ICollection<Comment> GetAllFromRealEstate(int realEstateId, int skip, int take)
+        public async Task<ICollection<Comment>> GetAllFromRealEstateAsync(int realEstateId, int skip, int take)
         {
-            var collection = _context.Comments.Where(c => c.AdvertisementId == realEstateId).OrderBy(c => c.CreatedOn).ToList();
+            var collection = await _context.Comments.Where(c => c.AdvertisementId == realEstateId).ToListAsync();
             if (collection == null)
             {
                 return null;
@@ -54,8 +56,24 @@ namespace BlocketLiteEFCoreDB.Repositories
                 take = collection.Count() - skip;
                 collectionOutput = collection.ToList().GetRange(skip, take);
             }
-
+            collectionOutput = collectionOutput.OrderBy(c => c.CreatedOn).ToList();
             return collectionOutput;
+        }
+
+        /// <summary>
+        /// If <see cref="DbContexts.BlocketLiteContext.Advertisements"/><see cref="Advertisement.Id"/> is equal to <paramref name="realEstateId"/>"/>
+        /// <br></br> returns <see cref="ICollection{T}"/> of <see cref="Comment"/>.
+        /// </summary>
+        /// <param name="realEstateId"></param>    
+        /// <returns>An <see cref="ICollection{T}"/> of <see cref="Comment"/></returns>
+        public async Task<ICollection<Comment>> GetAllFromRealEstateAsync(int realEstateId)
+        {
+            var collection = await _context.Comments.Where(c => c.AdvertisementId == realEstateId).ToListAsync();
+            if (collection == null)
+            {
+                return null;
+            }
+            return collection;
         }
 
         /// <summary>
@@ -66,9 +84,9 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns><see cref="ICollection{T} <see cref="Comment"/>"/></returns>
-        public ICollection<Comment> GetAllFromUser(string userName, int skip, int take)
+        public async Task<ICollection<Comment>> GetAllFromUserAsync(string userName, int skip, int take)
         {
-            var collection = _context.Comments.Where(c => c.UserName == userName).OrderBy(c => c.CreatedOn).ToList();
+            var collection = await _context.Comments.Where(c => c.UserName == userName).ToListAsync();
             if (collection == null)
             {
                 return null;
@@ -91,6 +109,7 @@ namespace BlocketLiteEFCoreDB.Repositories
                 collectionOutput = collection.ToList().GetRange(skip, take);
             }
 
+            collectionOutput = collectionOutput.OrderBy(c => c.CreatedOn).ToList();
             return collectionOutput;
         }
 

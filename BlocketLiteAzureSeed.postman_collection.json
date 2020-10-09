@@ -273,7 +273,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates?skip=2&take=1",
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates",
 					"protocol": "https",
 					"host": [
 						"blocketliteresourcegroup",
@@ -283,16 +283,6 @@
 					"path": [
 						"api",
 						"RealEstates"
-					],
-					"query": [
-						{
-							"key": "skip",
-							"value": "2"
-						},
-						{
-							"key": "take",
-							"value": "1"
-						}
 					]
 				}
 			},
@@ -470,6 +460,38 @@
 						"users",
 						"UserId",
 						"hanne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/RealEstates/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRXJpayIsImp0aSI6IjE5NTFjNjg4LThmN2UtNDUzYi04MjUxLTYxZDM1MDIzNDdlOSIsImV4cCI6MTYwMjE1NTY3NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.W9u0OHC4ay-dg9GnUOlHK7VotOWbeVc_hDBNMxDCbvs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://blocketliteresourcegroup.azurewebsites.net/api/RealEstates/1",
+					"protocol": "https",
+					"host": [
+						"blocketliteresourcegroup",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"RealEstates",
+						"1"
 					]
 				}
 			},

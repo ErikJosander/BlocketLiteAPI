@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BlocketLiteEFCoreDB.Repositories
 {
@@ -26,9 +27,9 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
-        public TEntity Get(int id)
+        public async Task<TEntity> GetAsync(int id)
         {
-            return _contex.Set<TEntity>().Find(id);
+            return await _contex.Set<TEntity>().FindAsync(id);
         }
 
         /// <summary>
@@ -36,18 +37,18 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A <typeparamref name="TEntity"/>.</returns>
-        public TEntity Get(string id)
+        public async Task<TEntity> GetAsync(string id)
         {
-            return _contex.Set<TEntity>().Find(id);
+            return await _contex.Set<TEntity>().FindAsync(id);
         }
 
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}"/> of the <see cref="TEntity"/>
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/></returns>
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _contex.Set<TEntity>().ToList();
+            return await _contex.Set<TEntity>().ToListAsync();
         }
 
         // Do we need this?
@@ -98,9 +99,17 @@ namespace BlocketLiteEFCoreDB.Repositories
         /// <summary>
         /// Saves changes made in the <see cref="DbContexts"/> to the DB.
         /// </summary>
+        public async void SaveAsync()
+        {
+           await _contex.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Saves changes made in the <see cref="DbContexts"/> to the DB.
+        /// </summary>
         public void Save()
         {
-            _contex.SaveChanges();
+             _contex.SaveChanges();
         }
     }
 }
